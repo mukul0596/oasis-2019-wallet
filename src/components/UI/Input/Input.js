@@ -3,8 +3,6 @@ import React from 'react';
 import "./Input.css";
 
 const input = (props) => {
-    let label = props.children;
-
     const otherProps = {
         ...props
     }
@@ -16,10 +14,8 @@ const input = (props) => {
         case ( 'textarea' ):
             delete otherProps.type;
             return <textarea className='Input' {...otherProps} />;
-            break;
         case ( null || undefined ): 
             return null;
-            break;
         case ( 'select' ):
             const options = props.options;
             delete otherProps.options;
@@ -30,7 +26,6 @@ const input = (props) => {
                     )) }
                 </select>
             );
-            break;
         default: {
             return <input className='Input' {...otherProps} />;
         }
