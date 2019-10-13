@@ -5,7 +5,8 @@
     <link rel="icon" href="%PUBLIC_URL%/oasis-favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app"/>
+    <meta name="google-signin-client_id" content="873252659214-md1pcn2npkm82mu269plbogbhc7ap7r2.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" onload="x()" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -16,7 +17,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>OASIS'19 Wallet</title>
+    <title>OASIS'19 || Wallet</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -31,5 +32,11 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      function x() {
+        window.isOauthScriptReady = true;
+        window.init();
+      }
+    </script>
   </body>
 </html>
