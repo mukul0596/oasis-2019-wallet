@@ -37,7 +37,6 @@ const logins = (state = initialState, action) => {
             },
             body: JSON.stringify(body)
         }, (error, response, body) => {
-            console.log(response.statusCode, body)
             handleResponse(error, response, body, () => {
                 try {
                     body = JSON.parse(body);
