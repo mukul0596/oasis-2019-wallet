@@ -1,9 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import reducers from './reducer';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './store/reducer/index';
 import thunk from 'redux-thunk'
 
 const store = createStore(
-    combineReducers(reducers),
+    reducers,
     applyMiddleware(thunk)
   )
 
