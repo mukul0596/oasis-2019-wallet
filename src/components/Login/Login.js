@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
+import Input from '../UI/Input/Input';
+import Button from '../UI/Button/Button';
 
 import './Login.css';
 
