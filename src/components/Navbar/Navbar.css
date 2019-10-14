@@ -1,0 +1,33 @@
+.Navbar {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 7.5%;
+    padding: 4px 32px;
+    box-sizing: border-box;
+    background: transparent linear-gradient(180deg, #343963 0%, #2B2F51 100%) 0% 0% no-repeat padding-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Navbar > * > svg {
+    width: 30px;
+    height: 30px;
+}
+
+.a {
+    fill:none;
+}
+.b {
+    fill:#fff;
+}
+
+.Navbar > .active > svg > path.b {
+    fill: #67D5DE;
+}
+.Navbar > .active > svg {
+    transform: scale(1.5)
+}
