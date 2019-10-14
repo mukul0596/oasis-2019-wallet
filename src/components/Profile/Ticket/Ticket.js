@@ -32,7 +32,7 @@ const ticket = (props) => {
                     </tr>
                 </tbody>
             </table>
-            <button className='TransactionButton'>Buy Tickets</button>
+            <button className='TransactionButton' onClick={ props.openBuyTicketHandler }>Buy Tickets</button>
         </div>
     )
 }

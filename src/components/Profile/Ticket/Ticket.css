@@ -28,7 +28,7 @@
     }
 }
 
-.TicketsTable > tr > td, .TicketsTable > thead > td {
+.TicketsTable td {
     padding: 8px 12px;
     border: none;
     white-space: nowrap;

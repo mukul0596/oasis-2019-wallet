@@ -6,11 +6,14 @@ import MessageBox from '../UI/MessageBox/MessageBox';
 import PageContainer from '../PageContainer/PageContainer';
 import Navbar from '../Navbar/Navbar';
 import Aux from '../hoc/Aux/Aux';
+import Backdrop from '../UI/Backdrop/Backdrop';
+import DialogBoxContainer from '../DialogBoxContainer/DialogBoxContainer';
 
 import './Wrapper.css';
 
 class Wrapper extends Component {
     render() {
+        // --------------------FOR ERROR MESSAGES------------------------
         let error;
         if (this.props.errorMessage) {
             error = (
@@ -20,6 +23,19 @@ class Wrapper extends Component {
             )
         }
 
+        // ------------------------FOR BACKDROP---------------------------
+        let backdrop;
+        if (this.props.isQRcodeOpen || this.props.isAddMoneyOpen || this.props.isSendMoneyOpen || this.props.isBuyTicketOpen) {
+            backdrop = <Backdrop click={ this.props.closeTransaction } />
+        }
+
+        // ------------------FOR DIALOG BOX CONTAINER---------------------
+        let dialogBoxContainer;
+        if (this.props.isQRcodeOpen || this.props.isAddMoneyOpen || this.props.isSendMoneyOpen || this.props.isBuyTicketOpen) {
+            dialogBoxContainer = <DialogBoxContainer />
+        }
+
+        // --------------FOR PAGES AND NAVBAR OR LOGIN PAGE---------------
         let child;
         if ( this.props.loggedIn ) {
             child = (
@@ -34,8 +50,11 @@ class Wrapper extends Component {
             );
         }
 
+
         return (
             <div className="Wrapper">
+                { dialogBoxContainer }
+                { backdrop }
                 { error }
                 { child }
             </div>
@@ -46,8 +65,18 @@ class Wrapper extends Component {
 const mapStateToProp = state => {
     return {
         loggedIn: state.auth.loggedIn,
-        errorMessage: state.auth.errorMessage
+        errorMessage: state.auth.errorMessage,
+        isQRcodeOpen: state.transaction.isQRcodeOpen,
+        isAddMoneyOpen: state.transaction.isAddMoneyOpen,
+        isSendMoneyOpen: state.transaction.isSendMoneyOpen,
+        isBuyTicketOpen: state.transaction.isBuyTicketOpen
     };
 };
 
-export default connect(mapStateToProp)(Wrapper);
+const mapDispatchToProp = dispatch => {
+    return {
+        closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' })
+    };
+}
+
+export default connect(mapStateToProp, mapDispatchToProp)(Wrapper);

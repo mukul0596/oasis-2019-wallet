@@ -89,9 +89,9 @@ class Login extends Component{
                             value={this.state.password} 
                             onChange={e => this.setState({ password: e.target.value })} />
                     </div>
-                    <Button click={(e) => this.login(e)}>LOGIN</Button>
+                    <Button click={(e) => this.login(e)}>Login</Button>
                 </form>
-                <Button click={this.googleLogin}>BITSian LOGIN</Button>
+                <Button click={this.googleLogin}>Login using BITS Mail</Button>
             </div>
         )
     }
