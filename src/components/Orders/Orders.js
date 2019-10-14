@@ -4,15 +4,15 @@ import Header from '../UI/Header/Header';
 
 import '../Page.css';
 
-class Cart extends Component {
+class Orders extends Component {
     render() {
         return (
-            <div className='Cart Page'>
-                <Header heading='Cart' subHeading='Know your current orders'>
+            <div className='Orders Page'>
+                <Header heading='Orders' subHeading='Know your past orders'>
                 </Header>
             </div>
         );
     }
 }
 
-export default Cart;
+export default Orders;

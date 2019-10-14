@@ -16,6 +16,7 @@
 .Navbar > * > svg {
     width: 30px;
     height: 30px;
+    transition: 0.25s;
 }
 
 .a {
@@ -23,11 +24,12 @@
 }
 .b {
     fill:#fff;
+    transition: 0.25s;
 }
 
-.Navbar > .active > svg > path.b {
+.Navbar > .active > svg path.b {
     fill: #67D5DE;
 }
 .Navbar > .active > svg {
-    transform: scale(1.5)
+    transform: scale(1.4);
 }

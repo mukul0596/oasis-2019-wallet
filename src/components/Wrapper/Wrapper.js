@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Login from '../Login/Login';
 import MessageBox from '../UI/MessageBox/MessageBox';
-import Profile from '../Profile/Profile';
+import PageContainer from '../PageContainer/PageContainer';
 import Navbar from '../Navbar/Navbar';
 import Aux from '../hoc/Aux/Aux';
 
@@ -24,7 +24,7 @@ class Wrapper extends Component {
         if ( this.props.loggedIn ) {
             child = (
                 <Aux>
-                    <Profile />
+                    <PageContainer />
                     <Navbar />
                 </Aux>
             );

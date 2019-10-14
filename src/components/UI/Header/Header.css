@@ -13,3 +13,11 @@
     font-size: 1.25rem;
     color: #999999;
 }
+
+.Header > i {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    color: #333333;
+    font-size: 2rem;
+}
