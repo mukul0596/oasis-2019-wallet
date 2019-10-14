@@ -1,0 +1,52 @@
+.MessageBox {
+    width: 90%;
+    max-height: 100vh;
+    padding: 100px 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #333333;
+    background: #eeeeee;
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: slideIn 0.5s ease 1 forwards;
+    box-shadow: 2px 2px 4px 4px #cccccc;
+}
+
+.CloseButton {
+    font-size: 36px;
+    color: #ff00ff;
+    position: absolute;
+    top: 6px;
+    right: 8px;-webkit-text-stroke: 3.5px #eeeeee;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%, -50%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(-50%, -50%);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+}

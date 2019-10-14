@@ -5,7 +5,8 @@ import handleResponse from '../../utils/handleResponse';
 
 const initialState = {
     loggedIn: false,
-    jwt_token: null
+    jwt_token: null,
+    errorMessage: null
 }
 
 const logins = (state = initialState, action) => {
@@ -23,8 +24,10 @@ const logins = (state = initialState, action) => {
                 body.username = username;
                 body.password = password;
             } else {
-                alert("Please, enter the username and password or login through BITS Mail");
-                return state;
+                return {
+                    ...state,
+                    errorMessage: "Please, enter the username and password or login through BITS Mail"
+                };
             }
         }
         request({
@@ -43,7 +46,8 @@ const logins = (state = initialState, action) => {
                     return {
                         ...state,
                         loggedIn: true,
-                        jwt_token: body.JWT
+                        jwt_token: body.JWT,
+                        errorMessage: null
                     }
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -51,6 +55,15 @@ const logins = (state = initialState, action) => {
             })
         });
     }
-  return state;
+    if ( type === login.CLOSE_ERROR ) {
+        return {
+            ...state,
+            errorMessage: null
+        }; 
+    }
+    return {
+        ...state,
+        errorMessage: null
+    };
 }
 export default logins;

@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Login from '../Login/Login';
+import MessageBox from '../../components/UI/MessageBox/MessageBox';
 
 import './Wrapper.css';
 
 class Wrapper extends Component {
     render() {
+        let error;
+        if (this.props.errorMessage) {
+            error = (
+                <MessageBox>
+                    { this.props.errorMessage }
+                </MessageBox>
+            )
+        }
+
         let child;
         if ( this.props.loggedIn ) {
             child = (
@@ -17,8 +27,10 @@ class Wrapper extends Component {
                 <Login />
             );
         }
+
         return (
             <div className="Wrapper">
+                { error }
                 { child }
             </div>
         )
@@ -27,7 +39,8 @@ class Wrapper extends Component {
 
 const mapStateToProp = state => {
     return {
-        loggedIn: state.auth.loggedIn
+        loggedIn: state.auth.loggedIn,
+        errorMessage: state.auth.errorMessage
     };
 };
 
