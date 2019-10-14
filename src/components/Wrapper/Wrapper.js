@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Login from '../Login/Login';
 import MessageBox from '../UI/MessageBox/MessageBox';
+import Profile from '../Profile/Profile';
 
 import './Wrapper.css';
 
@@ -20,7 +21,7 @@ class Wrapper extends Component {
         let child;
         if ( this.props.loggedIn ) {
             child = (
-                <p>User Logged In!</p>
+                <Profile />
             );
         } else {
             child = (

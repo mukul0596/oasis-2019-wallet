@@ -1,0 +1,44 @@
+.Ticket {
+    width: 100%;
+    padding: 16px;
+    background: #31365E;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.TicketHeading {
+    color: #ffffff;
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+}
+
+.TicketsTable {
+    width: 100%;
+    border: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+@media (max-width: 350px) {
+    .TicketsTable {
+        font-size: 0.9rem;
+    }
+}
+
+.TicketsTable > tr > td, .TicketsTable > thead > td {
+    padding: 8px 12px;
+    border: none;
+    white-space: nowrap;
+}
+
+.TicketsTable > thead {
+    color: #61B4FE;
+}
+
+.TicketsTable td:nth-of-type(3n+2), .TicketsTable td:nth-of-type(3n+3) {
+    color: #61B4FE;
+    text-align: center;
+}

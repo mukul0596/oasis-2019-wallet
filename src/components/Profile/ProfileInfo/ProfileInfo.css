@@ -1,0 +1,49 @@
+.ProfileInfo {
+    width: 100%;
+    padding: 16px;
+    background: #31365E;
+    border-radius: 7.5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+
+.UserInfo {
+    width: 70%;
+    padding-right: 8px;
+}
+
+.UserName {
+    color: #ffffff;
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+}
+
+.UserId {
+    font-size: 0.75;
+    color: #999999;
+    margin-bottom: 12px;
+}
+
+.WalletInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.WalletMoney, .WalletTokens {
+    color: #999999;
+    font-size: 0.75rem;
+}
+
+.WalletMoney > div, .WalletTokens > div {
+    color: #67D5DE;
+    font-size: 1.75rem;
+}
+
+.QRCode {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -23,6 +23,19 @@ const logins = (state = initialState, action) => {
                 let password = action.password;
                 body.username = username;
                 body.password = password;
+
+
+                // JUST FOR TESTING
+                if ( username === "mukul" && password === "12345") {
+                    return {
+                        ...state,
+                        loggedIn: true,
+                        errorMessage: null
+                    }
+                }
+                // -----------------
+
+
             } else {
                 return {
                     ...state,

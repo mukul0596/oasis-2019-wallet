@@ -1,0 +1,31 @@
+.LogOut {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    color: #333333;
+    font-size: 2rem;
+}
+
+.TransactionButtons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.TransactionButton {
+    color: #ffffff;
+    font-size: 1.25rem;
+    background: transparent linear-gradient(110deg, #8655E5 0%, #4CA8F5 100%) 0% 0% no-repeat padding-box;
+    border-radius: 7.5px;
+    padding: 12px 24px;
+    border: none;
+    margin: 28px 0;
+}
+
+@media (max-width: 350px) {
+    .TransactionButton {
+        font-size: 1.15rem;
+        padding: 10px 20px;
+    }
+}

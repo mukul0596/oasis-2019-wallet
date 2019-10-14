@@ -1,0 +1,15 @@
+.Header {
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.Heading {
+    font-size: 2.25rem;
+    color: #333333;
+    margin-bottom: 12px;
+}
+
+.SubHeading {
+    font-size: 1.25rem;
+    color: #999999;
+}
