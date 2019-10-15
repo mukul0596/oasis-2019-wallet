@@ -1,15 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import request from 'request';
 
+import api from '../../constants/api';
 import Header from '../UI/Header/Header';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Ticket from './Ticket/Ticket';
 import Button from '../UI/Button/Button';
+import handleResponse from '../../utils/handleResponse';
 
 import '../Page.css';
 import './Profile.css'
 
 class Profile extends Component {
+    componentDidMount() {
+        request({
+            method: 'POST',
+            url: api.GET_MY_PROFSHOWS,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Wallet-Token': api.WALLET_TOKEN,
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': 'JWT'+this.props.jwt_token
+            }
+        }, (error, response, body) => {
+            handleResponse(error, response, body, () => {
+                try {
+                    body = JSON.parse(body)
+                    console.log(body);
+                } catch (e) {
+                    throw new Error(e.message || "");
+                }
+            })
+        });
+    }
     render() {
         console.log(this.props)
         return (
@@ -41,6 +65,7 @@ class Profile extends Component {
 
 const mapStateToProp = state => {
     return {
+        jwt_token: state.auth.jwt_token,
         userName: state.auth.userName,
         userId: state.auth.userId,
         qrCode: state.auth.qrCode,
