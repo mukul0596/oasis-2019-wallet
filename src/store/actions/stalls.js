@@ -1,1 +1,2 @@
-export const GET_STALLS = 'GET_STALLS'
+export const GET_ALL_STALLS = 'GET_ALL_STALLS'
+export const SET_VENDORS = 'SET_VENDORS'

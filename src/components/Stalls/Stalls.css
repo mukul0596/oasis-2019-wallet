@@ -1,4 +1,14 @@
 .stallItem {
     background: #31365E;
     color: white;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+.MuiListItemText-primary {
+    font-size: 22px !important;
+}
+.MuiListItemText-secondary {
+    font-size: 14px !important;
+    color: #ffffff !important;
+    opacity: 0.3 !important;
 }

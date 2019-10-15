@@ -16,6 +16,7 @@ export const changeLoginStatus = (isLoggedIn, JWT) => (dispatch, getState) => {
 }
 
 export const googleLogin = id => (dispatch, getState) => {
+    console.log(id);
     request({
       method: 'POST',
       url: api.LOGIN,
@@ -43,6 +44,10 @@ export const googleLogin = id => (dispatch, getState) => {
 
 export const login = (username, password) => (dispatch, getState) =>{
     console.log(username, password)
+     // JUST FOR TESTING
+     if ( username === "mukul" && password === "12345") {
+        dispatch(changeLoginStatus(true, null))
+    }
     request({
         method: 'POST',
         url: api.LOGIN,

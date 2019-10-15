@@ -12,7 +12,7 @@ export const KIND_STORE = `${API_BASE}/kind-store/items`
 export const LOGIN = `${API_ROOT}/auth`
 export const REFRESH_QR = `${API_ROOT}/auth/qr-code/refresh`
 
-export const GET_VENDORS = `${API_ROOT}/vendor/`
+export const GET_VENDORS = `${API_ROOT}/vendors/`
 
 export const GET_ORDERS = `${API_ROOT}/orders/`
 export const PLACE_ORDER = `${API_ROOT}/orders/`

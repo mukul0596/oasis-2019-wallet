@@ -110,10 +110,13 @@ const mapDispatchToProps = dispatch => {
         return bindActionCreators(Object.assign({}, auth), dispatch);
 };
 
-const mapStateToProps = (state) => ({
-    auth: state.auth
-})
 
+const mapStateToProps = state => ({
+    auth: {
+        JWT: state.JWt,
+        loggedIn: state.loggedIn
+    }
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
