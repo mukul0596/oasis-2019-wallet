@@ -13,9 +13,6 @@ class Stalls extends Component {
     componentDidMount(){
         this.props.getStalls();
     }
-    componentDidUpdate(){
-        console.log(this.props)
-    }
     render() {
             let vendors;
             console.log(this.props)
@@ -23,8 +20,12 @@ class Stalls extends Component {
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
                 vendors = openVendors.map(({id, name, description}) => {
-                    {console.log(name)}
-                    return(<ListItem key={id} alignItems="flex-start" className='stallItem'>
+                    return(<ListItem key={id} alignItems="flex-start" className='stallItem' 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.props.getStallItem(id, name);
+                        }
+                    }>
                         {/* <ListItemAvatar>
                             <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
                         </ListItemAvatar> */}
