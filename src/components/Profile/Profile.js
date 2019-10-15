@@ -13,7 +13,7 @@ class Profile extends Component {
         return (
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
-                    <i class="fa fa-sign-out LogOut"></i>
+                    <i className="fa fa-sign-out LogOut"></i>
                 </Header>
                 <ProfileInfo 
                     userName="Mukul Gupta" 

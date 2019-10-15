@@ -1,7 +1,4 @@
-import request from 'request';
 import * as login from '../actions/auth';
-import * as api from '../../constants/api';
-import handleResponse from '../../utils/handleResponse';
 
 const initialState = {
     loggedIn: false,
@@ -43,36 +40,21 @@ const logins = (state = initialState, action) => {
                 };
             }
         }
-        request({
-            method: 'POST',
-            url: api.LOGIN,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Wallet-Token': api.WALLET_TOKEN,
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify(body)
-        }, (error, response, body) => {
-            handleResponse(error, response, body, () => {
-                try {
-                    body = JSON.parse(body);
-                    return {
-                        ...state,
-                        loggedIn: true,
-                        jwt_token: body.JWT,
-                        errorMessage: null
-                    }
-                } catch (e) {
-                    throw new Error(e.message || "");
-                }
-            })
-        });
+        
     }
     if ( type === login.CLOSE_ERROR ) {
         return {
             ...state,
             errorMessage: null
         }; 
+    }
+    if( type === login.SET_LOGIN) {
+        console.log(action)
+        return {
+            ...state,
+            loggedIn: action.isLoggedIn,
+            jwt_token: action.JWT
+        }
     }
     return {
         ...state,

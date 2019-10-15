@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 
+import { bindActionCreators } from 'redux'
 import './Login.css';
+import * as auth from '../../actionCreator/auth';
+
+import { stat } from 'fs';
 
 class Login extends Component{
     constructor(props) {
@@ -48,7 +52,7 @@ class Login extends Component{
             window.auth2.currentUser.listen((googleUser) => {
                 let id_token = googleUser.getAuthResponse().id_token;
                 if (id_token) {
-                    this.props.onLogin(id_token);
+                    this.props.googleLogin(id_token);
                 }
             });
         } else if (!window.isOauthScriptReady) {
@@ -89,7 +93,12 @@ class Login extends Component{
                             value={this.state.password} 
                             onChange={e => this.setState({ password: e.target.value })} />
                     </div>
-                    <Button click={(e) => this.login(e)}>Login</Button>
+                    <Button click={(e) => {
+                                e.preventDefault();
+                                this.props.login(this.state.username, this.state.password)
+                            }
+                        }>
+                    Login</Button>
                 </form>
                 <Button click={this.googleLogin}>Login using BITS Mail</Button>
             </div>
@@ -98,9 +107,13 @@ class Login extends Component{
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onLogin: (id_token, username, password) => dispatch({ type: 'LOGIN_USER', id_token, username, password })
-    };
+        return bindActionCreators(Object.assign({}, auth), dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => ({
+    auth: state.auth
+})
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
