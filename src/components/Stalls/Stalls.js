@@ -10,41 +10,32 @@ import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, ListI
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class Stalls extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true
-        }
+    componentDidMount(){
+        this.props.getStalls();
     }
-    componentDidMount() {
-        console.log(this.props)        
-    }
-    componentDidUpdate() {
-        let vendors = this.props.getStalls();
-        
-        console.log(this.props)
-    }
-    shouldComponentUpdate() {
+    componentDidUpdate(){
         console.log(this.props)
     }
     render() {
             let vendors;
             console.log(this.props)
-            if(!this.props.vendors || !this.props.vendors) vendors = [];
+            if(!this.props.vendors) vendors = [];
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
-                vendors = openVendors.map(({id, name}) => {
-                    /* eslint-disable-line */<ListItem alignItems="flex-start" className='stallItem'>
-                        <ListItemAvatar>
+                vendors = openVendors.map(({id, name, description}) => {
+                    {console.log(name)}
+                    return(<ListItem key={id} alignItems="flex-start" className='stallItem'>
+                        {/* <ListItemAvatar>
                             <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
-                        </ListItemAvatar>
-                        <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary="HELLO"/>
+                        </ListItemAvatar> */}
+                        <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
                         <ListItemSecondaryAction>
                             <IconButton edge="end" aria-label="delete">
                                 <ArrowForwardIosIcon style={{fill: 'white'}} />
                             </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
+                    )
                 })
                 console.log(vendors)
             }
@@ -55,28 +46,6 @@ class Stalls extends Component {
                     </Header>
                     <List>
                         {vendors}
-                        <ListItem alignItems="flex-start" className='stallItem'>
-                            <ListItemAvatar>
-                                <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
-                            </ListItemAvatar>
-                            <ListItemText className="stallName" style={{color: '#ffffff'}} primary="Dominos" secondary="HELLO"/>
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete">
-                                    <ArrowForwardIosIcon style={{fill: 'white'}} />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <ListItem alignItems="flex-start" className='stallItem'>
-                            <ListItemAvatar>
-                                <Avatar className="stallImg" alt="Remy Sharp" src="" />
-                            </ListItemAvatar>
-                            <ListItemText className="stallName" primary="Dominos" secondary="HELLO" />
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete">
-                                    <ArrowForwardIosIcon style={{fill: 'white'}} />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
                     </List>
                 </div>
             )
@@ -89,7 +58,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-    vendors: state.vendors
+    vendors: state.stall.vendors
 })
 
 

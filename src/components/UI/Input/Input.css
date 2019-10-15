@@ -1,14 +1,16 @@
 .Input {
     outline: none;
-    border: 1px solid #cccccc;
+    border: none;
+    background: #2B2F51;
     font: inherit;
     padding: 6px 10px;
     width: 100%;
     box-sizing: border-box;
     margin: 8px;
+    color: #ffffff;
 }
 
 .Input:focus {
     outline: none;
-    border: 1px solid #31365E;
+    border: 1px solid #ffffff;
 }

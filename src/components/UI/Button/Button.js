@@ -6,7 +6,8 @@ const button = (props) => (
     <button 
         className='Button'
         onClick={ props.click }
-        disabled={ props.disabled }>{ props.children }</button>
+        disabled={ props.disabled }
+        style={ props.style }>{ props.children }</button>
 )
 
 export default button;

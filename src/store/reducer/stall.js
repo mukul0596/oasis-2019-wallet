@@ -1,14 +1,19 @@
 import * as stall from '../actions/stalls';
 
-const initailState = {};
+const initailState = {
+    vendors: null
+};
 
-const stall = (state = initailState, action) => {
-    const type = {action};
-    console.log(action);
-    if(type === stall.VENDORS){
+const stalls = (state = initailState, action) => {
+    const { type } = action;
+    if(type === stall.SET_VENDORS){
+        console.log(action)
         return{
             ...state,
             vendors: action.vendors
         }
     }
+    else return state;
 }
+
+export default stalls;

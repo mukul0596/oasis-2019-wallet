@@ -1,7 +1,7 @@
 .Page {
     width: 100%;
     height: 92.5%;
-    padding: 10% 5%;
+    padding: 0% 5%;
     box-sizing: border-box;
     overflow: auto;
 }

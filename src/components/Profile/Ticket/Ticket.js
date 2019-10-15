@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from "../../UI/Button/Button";
+
 import './Ticket.css';
 
 const ticket = (props) => {
@@ -32,7 +34,7 @@ const ticket = (props) => {
                     </tr>
                 </tbody>
             </table>
-            <button className='TransactionButton' onClick={ props.openBuyTicketHandler }>Buy Tickets</button>
+            <Button click={ props.openBuyTicketHandler }>Buy Tickets</Button>
         </div>
     )
 }
