@@ -1,7 +1,7 @@
 // import { WALLET_TOKEN } from "@/.env"
 
 //Routes
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const proxyurl = "https://cors-anywhere.herokuapp.com/"
 export const API_BASE = proxyurl + "https://wallet.bits-oasis.org"
 // export const API_BASE = proxyurl + "http://test.bits-apogee.org/2019"
 // export const API_BASE = proxyurl + "https://bits-apogee.org/2019"
@@ -28,8 +28,10 @@ export const BUY_TICKETS = `${TICKET_MANAGER}/signup`
 export const ANALYTICS = `${API_ROOT}/analytics/webapp`
 
 //Wallet
-const WALLET_TOKEN = "ec123dac-339b-41ba-bca4-d3cab464083d";
-export { WALLET_TOKEN };
+const WALLET_TOKEN = "ec123dac-339b-41ba-bca4-d3cab464083d"
+export { WALLET_TOKEN }
 
 //LocalStorage Key
 export const LOCALSTORAGE_LOGIN = "apooge-login"
+
+export default '';

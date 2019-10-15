@@ -3,15 +3,14 @@ import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as auth from '../store/actions/auth';
 
-export const changeLoginStatus = (isLoggedIn, JWT) => (dispatch, getState) => {
+export const changeLoginStatus = (isLoggedIn, JWT, userName, userId, qrCode, referralCode, bitsianId) => (dispatch, getState) => {
 
     if (isLoggedIn) {
       
     }
-    console.log(isLoggedIn)
     dispatch({
       type: auth.SET_LOGIN,
-      isLoggedIn, JWT
+      isLoggedIn, JWT, userName, userId, qrCode, referralCode, bitsianId
     });
 }
 
@@ -31,8 +30,7 @@ export const googleLogin = id => (dispatch, getState) => {
       handleResponse(error, response, body, () => {
         try {
           body = JSON.parse(body)
-          const { JWT } = body
-          dispatch(changeLoginStatus(true, JWT))
+          dispatch(changeLoginStatus(true, body.JWT, body.name, body.user_id, body.qr_code, body.referral_code, body.bitsian_id))
         } catch (e) {
           throw new Error(e.message || "");
         }
@@ -42,7 +40,6 @@ export const googleLogin = id => (dispatch, getState) => {
 
 
 export const login = (username, password) => (dispatch, getState) =>{
-    console.log(username, password)
     request({
         method: 'POST',
         url: api.LOGIN,
@@ -59,7 +56,7 @@ export const login = (username, password) => (dispatch, getState) =>{
             try {
                 body = JSON.parse(body);
                 console.log(body)
-                dispatch(changeLoginStatus(true, body.JWT))
+                dispatch(changeLoginStatus(true, body.JWT, body.name, body.user_id, body.qr_code, body.referral_code, body.bitsian_id))
             } catch (e) {
                 throw new Error(e.message || "");
             }

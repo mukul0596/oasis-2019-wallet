@@ -1,12 +1,19 @@
 .Button {
-    background-color: transparent;
-    border: none;
-    color: white;
     outline: none;
     cursor: pointer;
-    font: inherit;
-    padding: 8px 16px;
-    margin: 10px;
     font-weight: 500;
-    background: #31365E;
+    color: #ffffff;
+    font-size: 1.25rem;
+    background: transparent linear-gradient(110deg, #8655E5 0%, #4CA8F5 100%) 0% 0% no-repeat padding-box;
+    border-radius: 7.5px;
+    padding: 12px 24px;
+    border: none;
+    margin: 24px 0;
+}
+
+@media (max-width: 350px) {
+    .Button {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
 }

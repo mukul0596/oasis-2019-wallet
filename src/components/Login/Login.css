@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background: #31365E;
 }
 
 .logo {
@@ -16,6 +17,7 @@ h1 {
     margin: 0;
     padding: 0;
     font-weight: normal;
+    color: #ffffff;
 }
 
 h2 {
@@ -23,6 +25,7 @@ h2 {
     padding: 0;
     font-weight: lighter;
     margin-bottom: 16px;
+    color: #ffffff;
 }
 
 #login-form {

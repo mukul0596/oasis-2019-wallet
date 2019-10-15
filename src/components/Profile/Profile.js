@@ -4,27 +4,29 @@ import { connect } from 'react-redux';
 import Header from '../UI/Header/Header';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Ticket from './Ticket/Ticket';
+import Button from '../UI/Button/Button';
 
 import '../Page.css';
 import './Profile.css'
 
 class Profile extends Component {
     render() {
+        console.log(this.props)
         return (
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
                     <i className="fa fa-sign-out LogOut"></i>
                 </Header>
                 <ProfileInfo 
-                    userName="Mukul Gupta" 
-                    userId='0596' 
+                    userName={ this.props.userName } 
+                    userId={ this.props.userId } 
                     walletMoney='520' 
                     walletTokens='25' 
-                    qrCode='5f307a54-93a3-42b4-b14d-a105b289a4a6'
+                    qrCode={ this.props.qrCode }
                     openQRcodeHandler={ this.props.openQRcode } />
                 <div className='TransactionButtons'>
-                    <button className='TransactionButton' onClick={ this.props.openAddMoney }>Add Money</button>
-                    <button className='TransactionButton' onClick={ this.props.openSendMoney }>Send Money</button>
+                    <Button click={ this.props.openAddMoney }>Add Money</Button>
+                    <Button click={ this.props.openSendMoney }>Send Money</Button>
                 </div>
                 <Ticket 
                     sunidhiChauhanTotal='1' sunidhiChauhanUsed='0' 
@@ -37,6 +39,16 @@ class Profile extends Component {
 }
 
 
+const mapStateToProp = state => {
+    return {
+        userName: state.auth.userName,
+        userId: state.auth.userId,
+        qrCode: state.auth.qrCode,
+        referralCode: state.auth.referralCode,
+        bitsianId: state.auth.bitsianId
+    };
+};
+
 const mapDispatchToProp = dispatch => {
     return {
         openQRcode: () => dispatch({ type: 'OPEN_QRCODE' }),
@@ -46,4 +58,4 @@ const mapDispatchToProp = dispatch => {
     };
 }
 
-export default connect(null, mapDispatchToProp)(Profile);
+export default connect(mapStateToProp, mapDispatchToProp)(Profile);
