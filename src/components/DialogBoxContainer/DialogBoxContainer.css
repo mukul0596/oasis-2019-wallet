@@ -16,6 +16,10 @@
     animation: slideIn 0.5s ease  1 forwards;
 }
 
+.DialogBoxContainer > div > canvas {
+    padding: 10px;
+}
+
 .DialogBoxContainer > form {
     width: 100%;
     display: flex;
@@ -36,4 +40,40 @@
     position: absolute;
     top: 6px;
     right: 8px;-webkit-text-stroke: 3.5px #31365E;
+}
+
+.TicketCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 0;
+}
+
+.ShowDetail {
+    width: 65%;
+    color: #ffffff;
+}
+
+.ShowName {
+    font-size: 0.95rem;
+}
+
+.ShowDescription {
+    font-size: 0.75rem;
+    color: #cccccc;
+    margin-top: 4px;
+}
+
+.TicketFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 8px;
+}
+
+.totalTicketPrice {
+    color: #ffffff;
+    font-size: 0.95rem;
 }

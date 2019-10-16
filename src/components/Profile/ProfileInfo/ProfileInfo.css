@@ -11,12 +11,12 @@
 
 .UserInfo {
     width: 70%;
-    padding-right: 8px;
+    padding-right: 20px;
 }
 
 .UserName {
     color: #ffffff;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-bottom: 4px;
 }
 
@@ -42,8 +42,12 @@
 }
 
 .QRCode {
-    width: 30%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.QRCode > canvas {
+    margin: 5px;
 }

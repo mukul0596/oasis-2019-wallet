@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 
-import api from '../../constants/api';
+import * as api from '../../constants/api';
 import Header from '../UI/Header/Header';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Ticket from './Ticket/Ticket';
@@ -10,24 +10,25 @@ import Button from '../UI/Button/Button';
 import handleResponse from '../../utils/handleResponse';
 
 import '../Page.css';
-import './Profile.css'
+import './Profile.css';
 
 class Profile extends Component {
     componentDidMount() {
         request({
-            method: 'POST',
+            method: 'GET',
             url: api.GET_MY_PROFSHOWS,
             headers: {
                 'Content-Type': 'application/json',
                 'X-Wallet-Token': api.WALLET_TOKEN,
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'JWT'+this.props.jwt_token
+                'Authorization': 'JWT '+this.props.jwt_token
             }
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
                     body = JSON.parse(body)
-                    console.log(body);
+                    console.log(body.shows)
+                    this.props.getUserTickets(body.shows);
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -35,7 +36,6 @@ class Profile extends Component {
         });
     }
     render() {
-        console.log(this.props)
         return (
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
@@ -53,9 +53,7 @@ class Profile extends Component {
                     <Button click={ this.props.openSendMoney }>Send Money</Button>
                 </div>
                 <Ticket 
-                    sunidhiChauhanTotal='1' sunidhiChauhanUsed='0' 
-                    biswaTotal='1' biswaUsed='0' 
-                    nucleyaTotal='0' nucleyaUsed='0'
+                    userTickets={ this.props.userTickets }
                     openBuyTicketHandler={ this.props.openBuyTicket } />
             </div>
         );
@@ -70,7 +68,8 @@ const mapStateToProp = state => {
         userId: state.auth.userId,
         qrCode: state.auth.qrCode,
         referralCode: state.auth.referralCode,
-        bitsianId: state.auth.bitsianId
+        bitsianId: state.auth.bitsianId,
+        userTickets: state.userTickets.userTickets
     };
 };
 
@@ -79,7 +78,8 @@ const mapDispatchToProp = dispatch => {
         openQRcode: () => dispatch({ type: 'OPEN_QRCODE' }),
         openSendMoney: () => dispatch({ type: 'OPEN_SEND_MONEY' }),
         openAddMoney: () => dispatch({ type: 'OPEN_ADD_MONEY' }),
-        openBuyTicket: () => dispatch({ type: 'OPEN_BUY_TICKET' })
+        openBuyTicket: () => dispatch({ type: 'OPEN_BUY_TICKET' }),
+        getUserTickets: (tickets) => dispatch({ type: 'GET_USER_TICKETS', payload: tickets })
     };
 }
 

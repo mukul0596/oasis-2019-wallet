@@ -12,7 +12,7 @@
 
 .TicketHeading {
     color: #ffffff;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
 }
 
@@ -20,7 +20,7 @@
     width: 100%;
     border: none;
     color: #ffffff;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 @media (max-width: 350px) {
     .TicketsTable {

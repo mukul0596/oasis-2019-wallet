@@ -77,7 +77,7 @@ const mapStateToProp = state => {
 const mapDispatchToProp = dispatch => {
     return {
         closeTransaction: () => {
-            document.getElementsByClassName('MessageBox')[0].style.animation = 'slideOut 0.5s ease 1 forwards'
+            document.getElementsByClassName('DialogBoxContainer')[0].style.animation = 'slideOut 0.5s ease 1 forwards'
             setTimeout(() => dispatch({ type: 'CLOSE_TRANSACTION' }), 500);
         }
     };

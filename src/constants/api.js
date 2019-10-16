@@ -34,5 +34,3 @@ export { WALLET_TOKEN }
 
 //LocalStorage Key
 export const LOCALSTORAGE_LOGIN = "apooge-login"
-
-export default '';
