@@ -19,7 +19,6 @@ const stalls = (state = initailState, action) => {
             activeVendor: action.vendor,
             menu: action.menu,
             activeVendorId: action.vendorId,
-            cart: []
         }
     }
     else return state;

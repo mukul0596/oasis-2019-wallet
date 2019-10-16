@@ -7,17 +7,21 @@ const carts = (state = initialState, action) => {
 
   if (type === cart.ADD_TO_CART) {
     let newState;
-    if (state[action.stallId]) {
+    console.log(state)
+    if (state.cart[action.stallId]) {
       newState = {
         ...state,
-        [action.stallId]: {
-          ...state[action.stallId],
-          items: {
-            ...state[action.stallId].items,
-            [action.itemId]: {
-              itemName: action.itemName,
-              price: action.price,
-              quantity: 1
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            ...state.cart[action.stallId],
+            items: {
+              ...state.cart[action.stallId].items,
+              [action.itemId]: {
+                itemName: action.itemName,
+                price: action.price,
+                quantity: 1
+              }
             }
           }
         }
@@ -26,31 +30,39 @@ const carts = (state = initialState, action) => {
     else {
       newState = {
         ...state,
-        [action.stallId]: {
-          stallName: action.stallName,
-          items: {
-            [action.itemId]: {
-              itemName: action.itemName,
-              price: action.price,
-              quantity: 1
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            stallName: action.stallName,
+            items: {
+              [action.itemId]: {
+                itemName: action.itemName,
+                price: action.price,
+                quantity: 1
+              }
             }
           }
         }
       }
     }
+    console.log(newState, state)
     return newState;
   }
 
   else if (type === cart.INC_QTY) {
+    console.log(state)
     return {
       ...state,
-      [action.stallId]: {
-        ...state[action.stallId],
-        items: {
-          ...state[action.stallId].items,
-          [action.itemId]: {
-            ...state[action.stallId].items[action.itemId],
-            quantity: state[action.stallId].items[action.itemId].quantity + 1
+      cart: {
+          ...state.cart,
+          [action.stallId]: {
+          ...state.cart[action.stallId],
+          items: {
+            ...state.cart[action.stallId].items,
+            [action.itemId]: {
+              ...state.cart[action.stallId].items[action.itemId],
+              quantity: state.cart[action.stallId].items[action.itemId].quantity + 1
+            }
           }
         }
       }
@@ -60,27 +72,30 @@ const carts = (state = initialState, action) => {
   else if (type === cart.DEC_QTY) {
 
     let newState = { ...state }
-    if (state[action.stallId] && state[action.stallId].items[action.itemId]) {
+    if (state.cart[action.stallId] && state.cart[action.stallId].items[action.itemId]) {
       newState = {
         ...state,
-        [action.stallId]: {
-          ...state[action.stallId],
-          items: {
-            ...state[action.stallId].items,
-            [action.itemId]: {
-              ...state[action.stallId].items[action.itemId],
-              quantity: state[action.stallId].items[action.itemId].quantity - 1
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            ...state.cart[action.stallId],
+            items: {
+              ...state.cart[action.stallId].items,
+              [action.itemId]: {
+                ...state.cart[action.stallId].items[action.itemId],
+                quantity: state.cart[action.stallId].items[action.itemId].quantity - 1
+              }
             }
           }
         }
       }
   
-      if (newState[action.stallId].items[action.itemId].quantity === 0) {
-        delete newState[action.stallId].items[action.itemId];
+      if (newState.cart[action.stallId].items[action.itemId].quantity === 0) {
+        delete newState.cart[action.stallId].items[action.itemId];
       }
   
-      if (Object.keys(newState[action.stallId].items).length <= 0) {
-        delete newState[action.stallId];
+      if (Object.keys(newState.cart[action.stallId].items).length <= 0) {
+        delete newState.cart[action.stallId];
       }
     }
 
@@ -88,7 +103,11 @@ const carts = (state = initialState, action) => {
   }
 
   else if (type === cart.CART_CLEAR) {
-    return {}
+    console.log(action)
+    return {
+      ...state,
+      cart: {}
+    }
   }
 
   return {

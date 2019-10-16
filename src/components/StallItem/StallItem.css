@@ -8,3 +8,6 @@
     margin-right: 5px;
     margin-left: 5px;
 }
+.MuiListItemText-root {
+    max-width: 75% !important;
+}
