@@ -19,8 +19,7 @@ class DialogBoxContainer extends Component {
         userId: null,
         combosTickets: [],
         showsTickets: [],
-        comboTicketCounter: [],
-        showsTicketCounter: [],
+        combos: {},
         ticketPrice: 0
     }
     addMoneyHandler(e) {
@@ -104,6 +103,7 @@ class DialogBoxContainer extends Component {
             handleResponse(error, response, body, () => {
                 try {
                     body = JSON.parse(body)
+                    console.log(body)
                     this.setState({ combosTickets: body.combos, showsTickets: body.shows });
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -113,7 +113,13 @@ class DialogBoxContainer extends Component {
     }
 
     changeComboTicketCounter(id, price) {
-        this.setState({ comboTicketCounter: [...this.state.comboTicketCounter, id], ticketPrice: this.state.ticketPrice + price });
+        if(this.state.combos[id]){
+            this.setState({...this.state, combos: {
+                ...this.state.combos,
+                [id]: this.state.combos[id] + 1
+            }})
+        }
+        console.log(this.state)
     }
 
     changeShowsTicketCounter(id, price) {
@@ -153,7 +159,7 @@ class DialogBoxContainer extends Component {
                 dupShows.push(Shows[i]);
             }
         }
-        let combosTickets = [];
+        let combosTickets = {};
         let showsTickets = [];
         for (let i = 0; i < dupCombos.length; i++) {
             let c = 0;
@@ -161,9 +167,7 @@ class DialogBoxContainer extends Component {
                 if (dupCombos[i] === Combos[j])
                     c++;
             }
-            let obj = {};
-            obj[dupCombos[i]] = c;
-            combosTickets.push(obj);
+            combosTickets[i] = c;
         }
         for (let i = 0; i < dupShows.length; i++) {
             let c = 0;
@@ -175,6 +179,11 @@ class DialogBoxContainer extends Component {
             obj[dupShows[i]] = c;
             showsTickets.push(obj);
         }
+        let body = {
+            'combos': combosTickets,
+            'individual': {}
+        }
+        console.log(body)
         console.log("Combos: ", combosTickets)
         console.log("Shows: ", showsTickets)
         request({
@@ -186,10 +195,7 @@ class DialogBoxContainer extends Component {
                 'Access-Control-Allow-Origin': '*',
                 'Authorization': 'JWT '+this.props.jwt_token
             },
-            body: {
-                'individual': showsTickets,
-                'combos': combosTickets
-            }
+            body: JSON.stringify(body)
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {

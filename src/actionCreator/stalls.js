@@ -42,7 +42,7 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
         headers: {
           'Content-Type': 'application/json',
           'X-Wallet-Token': api.WALLET_TOKEN,
-          'Authorization': `JWT${getState().JWT}`,
+          'Authorization': `JWT${getState().auth.jwt_token}`,
           'Access-Control-Allow-Origin': '*'
         }
       }, (error, response, body) => {

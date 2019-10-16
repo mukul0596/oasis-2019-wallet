@@ -3,8 +3,7 @@ import * as cart from '../../actionCreator/cart';
 import Header from '../UI/Header/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, ListItemIcon, Typography, ListSubheader } from '@material-ui/core';
-import { AddCircle, RemoveCircle } from '@material-ui/icons';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, ListItemIcon, ListSubheader } from '@material-ui/core';
 import '../Page.css';
 import './StallItem.css';
 
@@ -38,7 +37,7 @@ class StallItem extends Component {
 
     addNewItem(item) {
         console.log(item)
-        this.props.addNewItemToCart(this.props.activeVendor, item.vendor_id, item.name, item.id, item.price)
+        this.props.addNewItemToCart(this.props.activeVendor, item.vendor_id, item.name, item.id, item.price, item.is_veg)
     }
 
     incrementQuantity(item) {
@@ -47,6 +46,13 @@ class StallItem extends Component {
 
     decrementQuantity(item) {
         this.props.decreaseQty(item.vendor_id, item.id)
+    }
+
+    isVeg(item) {
+        if(item.is_veg)
+            return require('../../assets/images/veg.png')
+        else 
+            return require('../../assets/images/nonveg.png')
     }
 
     render() {
@@ -80,7 +86,10 @@ class StallItem extends Component {
                             {console.log(item.id)}
                             return (
                                 <ListItem>
-                                    <ListItemText key={item.id} className="stallName" style={{color: '#ffffff'}} primary={item.name} />
+                                    <ListItemIcon>
+                                        <img src={this.isVeg(item)} alt="" style={{width: '24px'}} />
+                                    </ListItemIcon>
+                                    <ListItemText key={item.id} className="stallName" style={{color: '#ffffff'}} primary={item.name} secondary={'₹ '+item.price} />
                                     <ListItemSecondaryAction>
                                         <div edge="end">
                                             {/* <RemoveCircle style={{color: '#ffffff'}} />
@@ -104,7 +113,7 @@ class StallItem extends Component {
         return(
             <div className="stallMenu Page">
                 <Header heading={this.props.activeVendor}>
-                    <i className="fa fa-search SearchIcon"></i>
+                    <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('Stalls')}/>
                 </Header>
                 {items}
             </div>
@@ -113,7 +122,11 @@ class StallItem extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators(Object.assign({}, cart), dispatch);
+    const action = bindActionCreators(Object.assign({}, cart), dispatch);
+    return {
+        ...action, 
+        changeActiveTab: (activeTab) => dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab })
+    }
 };
 
 const mapStateToProps = state => ({

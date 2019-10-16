@@ -11,3 +11,15 @@
 .MuiListItemText-root {
     max-width: 75% !important;
 }
+.MuiListItemIcon-root {
+    min-width: 32px !important;
+}
+
+@media(max-width: 400px) {
+    .MuiListItemText-root {
+        max-width: 60% !important;
+    }
+    .MuiListItemText-primary {
+        font-size: 14px !important;
+    }
+}

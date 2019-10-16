@@ -4,13 +4,16 @@ const initialState = {}
 
 const carts = (state = initialState, action) => {
   const { type } = action;
-
+  console.log(type)
   if (type === cart.ADD_TO_CART) {
     let newState;
+    console.log(state.totalItems, state.totalPrice, action.price, 1)
     console.log(state)
     if (state.cart[action.stallId]) {
       newState = {
         ...state,
+        totalItems: state.totalItems + 1,
+        totalPrice: state.totalPrice + action.price,
         cart: {
           ...state.cart,
           [action.stallId]: {
@@ -20,7 +23,8 @@ const carts = (state = initialState, action) => {
               [action.itemId]: {
                 itemName: action.itemName,
                 price: action.price,
-                quantity: 1
+                quantity: 1,
+                isVeg: action.isVeg
               }
             }
           }
@@ -30,6 +34,8 @@ const carts = (state = initialState, action) => {
     else {
       newState = {
         ...state,
+        totalItems: state.totalItems + 1,
+        totalPrice: state.totalPrice + action.price,
         cart: {
           ...state.cart,
           [action.stallId]: {
@@ -38,7 +44,8 @@ const carts = (state = initialState, action) => {
               [action.itemId]: {
                 itemName: action.itemName,
                 price: action.price,
-                quantity: 1
+                quantity: 1,
+                isVeg: action.isVeg
               }
             }
           }
@@ -53,6 +60,8 @@ const carts = (state = initialState, action) => {
     console.log(state)
     return {
       ...state,
+      totalItems: state.totalItems + 1,
+      totalPrice: state.totalPrice + state.cart[action.stallId].items[action.itemId].price,
       cart: {
           ...state.cart,
           [action.stallId]: {
@@ -75,6 +84,8 @@ const carts = (state = initialState, action) => {
     if (state.cart[action.stallId] && state.cart[action.stallId].items[action.itemId]) {
       newState = {
         ...state,
+        totalItems: state.totalItems - 1,
+        totalPrice: state.totalPrice - state.cart[action.stallId].items[action.itemId].price,
         cart: {
           ...state.cart,
           [action.stallId]: {
@@ -106,7 +117,9 @@ const carts = (state = initialState, action) => {
     console.log(action)
     return {
       ...state,
-      cart: {}
+      totalItems: 0,
+      totalPrice: 0,
+      cart: { }
     }
   }
 

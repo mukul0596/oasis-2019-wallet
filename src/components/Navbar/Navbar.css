@@ -33,3 +33,29 @@
 .Navbar > .active > svg {
     transform: scale(1.4);
 }
+
+.Navbar > .quantityPrice {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    color: #ffffff;
+}
+.Navbar > .viewCart {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: 18px;
+}
+.Navbar > .viewCart > .view {
+    margin-right: 5px;
+}
+@media(max-width: 400px) {
+    .Navbar > .quantityPrice {
+        font-size: 14px;
+    }
+    .Navbar > .viewCart {
+        font-size: 14px;
+    }
+}
