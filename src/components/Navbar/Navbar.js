@@ -5,6 +5,7 @@ import OrdersIcon from './NavbarIcons/OrdersIcon';
 import ProfileIcon from './NavbarIcons/ProfileIcon';
 import StallsIcon from './NavbarIcons/StallsIcon';
 import CartIcon from './NavbarIcons/CartIcon';
+import MoreIcon from './NavbarIcons/MoreIcon';
 
 import './Navbar.css';
 
@@ -16,6 +17,7 @@ class Navbar extends Component {
                 <div className={ (this.props.activeTab === 'Stalls') ? 'active' : null } onClick={() => this.props.changeActiveTab('Stalls') }><StallsIcon /></div>
                 <div className={ (this.props.activeTab === 'Cart') ? 'active' : null } onClick={() => this.props.changeActiveTab('Cart') }><CartIcon /></div>
                 <div className={ (this.props.activeTab === 'Orders') ? 'active' : null } onClick={() => this.props.changeActiveTab('Orders') }><OrdersIcon /></div>
+                <div className={ (this.props.activeTab === 'More') ? 'active' : null } onClick={() => this.props.changeActiveTab('More') }><MoreIcon /></div>
             </div>
         );
     }

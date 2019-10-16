@@ -5,6 +5,7 @@ import Profile from '../Profile/Profile';
 import Stalls from '../Stalls/Stalls';
 import Cart from '../Cart/Cart';
 import Orders from '../Orders/Orders';
+import More from '../More/More';
 
 class PageConatiner extends Component {
     render() {
@@ -24,6 +25,10 @@ class PageConatiner extends Component {
         
             case 'Orders':
                 activePage = <Orders />
+                break;
+
+            case 'More':
+                activePage = <More />
                 break;
         
             default:
