@@ -3,6 +3,7 @@ import loginReducer from './auth';
 import activeTab from './activeTab';
 import transaction from './transaction';
 import stall from './stall';
+import userTickets from './userTickets';
 
 import { combineReducers } from 'redux';
 
@@ -11,5 +12,6 @@ export default combineReducers({
     auth: loginReducer,
     activeTab,
     transaction,
-    stall
+    stall,
+    userTickets
 })

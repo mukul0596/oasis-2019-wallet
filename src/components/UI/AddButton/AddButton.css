@@ -1,0 +1,42 @@
+.AddButton {
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+    background: #31365E;
+    border: 2px solid #ffffff;
+}
+
+.CounterButtonContainer {
+    font-weight: 500;
+    color: #31365E;
+    font-size: 0.85rem;
+    border-radius: 7.5px;
+    border: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    overflow: hidden;
+    width: max-content;
+}
+
+.CounterButton {
+    font-size: 0.85rem;
+    color: #ffffff;
+    background: #31365E;
+    padding: 5px 8px;
+    border: none;
+    outline: none;
+}
+
+.CounterButton:nth-of-type(1) {
+    margin-right: 4px;
+}
+
+.CounterButton:nth-of-type(2) {
+    margin-left: 4px;
+}

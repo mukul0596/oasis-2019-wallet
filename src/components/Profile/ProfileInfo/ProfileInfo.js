@@ -21,7 +21,7 @@ const profileInfo = (props) => {
                 </div>
             </div>
             <div className='QRCode' onClick={ props.openQRcodeHandler }>
-                <QRCode value={ props.qrCode } bgColor="#31365E" fgColor="#ffffff" size={76} />
+                <QRCode value={ props.qrCode } bgColor="#ffffff" fgColor="#000000" size={70} />
             </div>
         </div>
     )
