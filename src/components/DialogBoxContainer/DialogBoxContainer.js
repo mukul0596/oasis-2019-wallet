@@ -104,7 +104,6 @@ class DialogBoxContainer extends Component {
             handleResponse(error, response, body, () => {
                 try {
                     body = JSON.parse(body)
-                    console.log(body)
                     this.setState({ combosTickets: body.combos, showsTickets: body.shows });
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -124,6 +123,10 @@ class DialogBoxContainer extends Component {
     buyTickets() {
         let Combos = [...this.state.comboTicketCounter];
         let Shows = [...this.state.showsTicketCounter];
+        if (Combos.length === 0 && Shows.length === 0) {
+            alert ("Please select a ticket to buy!");
+            return;
+        }
         let dupCombos = [Combos[0]];
         let dupShows = [Shows[0]];
         for (let i = 1; i < Combos.length; i++) {
@@ -172,6 +175,8 @@ class DialogBoxContainer extends Component {
             obj[dupShows[i]] = c;
             showsTickets.push(obj);
         }
+        console.log("Combos: ", combosTickets)
+        console.log("Shows: ", showsTickets)
         request({
             method: 'POST',
             url: api.BUY_TICKETS,
@@ -255,10 +260,11 @@ class DialogBoxContainer extends Component {
             )
         }
         if (this.props.isBuyTicketOpen) {
-            this.getAllShows();
+            if (this.state.combosTickets.length === 0 && this.state.showsTickets.length === 0)
+                this.getAllShows();
             let combos = this.state.combosTickets.map(combo => {
                 return (
-                    <div className='TicketCard'>
+                    <div className='TicketCard' key={ combo.id }>
                         <div className='ShowDetail'>
                             <div className="ShowName">
                                 { combo.shows[0].name + ' + ' + combo.shows[1].name }
@@ -271,29 +277,29 @@ class DialogBoxContainer extends Component {
                     </div>
                 )
             });
-            let shows = this.state.showsTickets.map(show => {
-                return (
-                    <div className='TicketCard'>
-                        <div className='ShowDetail'>
-                            <div className="ShowName">
-                                { show.name }
-                            </div>
-                            <div className='ShowDescription'>
-                                { (this.props.bitsianId) ? ('₹ ' + show.price) : (show.allow_participants ? ('₹ ' + show.price) : "Not available") }
-                            </div>
-                        </div>
-                        <AddButton click={ () => this.changeShowsTicketCounter(show.id, show.price) } />
-                    </div>
-                )
-            });
+            // let shows = this.state.showsTickets.map(show => {
+            //     return (
+            //         <div className='TicketCard' key={ show.id }>
+            //             <div className='ShowDetail'>
+            //                 <div className="ShowName">
+            //                     { show.name }
+            //                 </div>
+            //                 <div className='ShowDescription'>
+            //                     { (this.props.bitsianId) ? ('₹ ' + show.price) : (show.allow_participants ? ('₹ ' + show.price) : "Not available") }
+            //                 </div>
+            //             </div>
+            //             <AddButton click={ () => this.changeShowsTicketCounter(show.id, show.price) } />
+            //         </div>
+            //     )
+            // });
             dialogBox = (
                 <Aux>
                     <div className='CombosTickets'>
                         { combos }
                     </div>
-                    <div className='ShowsTickets'>
+                    {/* <div className='ShowsTickets'>
                         { shows }
-                    </div>
+                    </div> */}
                     <div className='TicketFooter'>
                         <div className='totalTicketPrice'>&#8377; { this.state.ticketPrice }</div>
                         <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.buyTickets() }>Buy</Button>
