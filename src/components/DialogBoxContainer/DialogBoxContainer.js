@@ -296,7 +296,7 @@ class DialogBoxContainer extends Component {
                     </div>
                     <div className='TicketFooter'>
                         <div className='totalTicketPrice'>&#8377; { this.state.ticketPrice }</div>
-                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }}>Buy</Button>
+                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.buyTickets() }>Buy</Button>
                     </div>
                 </Aux>
             )
