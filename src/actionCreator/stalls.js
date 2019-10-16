@@ -50,7 +50,7 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
           try {
             body = JSON.parse(body)
             console.log(body);
-            dispatch(setStallMenu(body, vendorName))
+            dispatch(setStallMenu(body,vendorId, vendorName))
             dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
           } catch (e) {
             throw new Error(e.message || "");
@@ -59,9 +59,9 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
     });
 }
 
-export const setStallMenu = (menu, vendor) => (dispatch, getState) => {
+export const setStallMenu = (menu, vendorId, vendor) => (dispatch, getState) => {
     dispatch({
         type: stall.SET_VENDOR_MENU,
-        menu, vendor
+        menu, vendor, vendorId
     })
 }

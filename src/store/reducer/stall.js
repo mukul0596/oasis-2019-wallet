@@ -17,7 +17,9 @@ const stalls = (state = initailState, action) => {
         return{
             ...state,
             activeVendor: action.vendor,
-            menu: action.menu
+            menu: action.menu,
+            activeVendorId: action.vendorId,
+            cart: []
         }
     }
     else return state;

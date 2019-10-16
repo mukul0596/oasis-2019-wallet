@@ -1,0 +1,10 @@
+.MuiListItemText-primary {
+    font-size: 18px !important;
+}
+.MuiIconButton-label {
+    color: #ffffff !important;
+}
+.quantity {
+    margin-right: 5px;
+    margin-left: 5px;
+}

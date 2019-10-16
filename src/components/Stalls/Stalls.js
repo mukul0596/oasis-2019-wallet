@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import '../Page.css';
 import './Stalls.css';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, ListItemSecondaryAction, IconButton, makeStyles } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class Stalls extends Component {
@@ -31,7 +31,7 @@ class Stalls extends Component {
                         </ListItemAvatar> */}
                         <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end">
                                 <ArrowForwardIosIcon style={{fill: 'white'}} />
                             </IconButton>
                         </ListItemSecondaryAction>
