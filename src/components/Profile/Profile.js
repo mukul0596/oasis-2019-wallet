@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import request from 'request';
 
+import firestore from '../../firestore/Firestore';
+
 import * as api from '../../constants/api';
 import Header from '../UI/Header/Header';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
@@ -34,18 +36,33 @@ class Profile extends Component {
                 }
             })
         });
+
+        firestore.doc('users/' + this.props.userId).onSnapshot((doc) => {
+            if (doc && doc.exists) {
+                const user = doc.data();
+                this.props.updateBalanceAndTokens(user.total_balance, user.tokens)
+            }
+        });
+
+        firestore.doc('tickets/' + this.props.userId).onSnapshot((doc) => {
+            if (doc && doc.exists) {
+                const tickets = doc.data();
+                console.log('tickets: ',tickets);
+            }
+        });
     }
     render() {
         return (
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
-                    <i className="fa fa-sign-out LogOut"></i>
+                    <i className="fa fa-sign-out LogOut" onClick={ () => window.location.reload() }></i>
+                    <i className="fa fa-share-alt LogOut" onClick={ this.props.openReferralCode }></i>
                 </Header>
                 <ProfileInfo 
                     userName={ this.props.userName } 
                     userId={ this.props.userId } 
-                    walletMoney='520' 
-                    walletTokens='25' 
+                    walletMoney={ this.props.userBalance } 
+                    walletTokens={ this.props.userTokens } 
                     qrCode={ this.props.qrCode }
                     openQRcodeHandler={ this.props.openQRcode } />
                 <div className='TransactionButtons'>
@@ -69,7 +86,10 @@ const mapStateToProp = state => {
         qrCode: state.auth.qrCode,
         referralCode: state.auth.referralCode,
         bitsianId: state.auth.bitsianId,
-        userTickets: state.userTickets.userTickets
+        // userTickets: state.auth.userTickets,
+        userTickets: state.userTickets.userTickets,
+        userBalance: state.auth.userBalance,
+        userTokens: state.auth.userTokens
     };
 };
 
@@ -79,7 +99,10 @@ const mapDispatchToProp = dispatch => {
         openSendMoney: () => dispatch({ type: 'OPEN_SEND_MONEY' }),
         openAddMoney: () => dispatch({ type: 'OPEN_ADD_MONEY' }),
         openBuyTicket: () => dispatch({ type: 'OPEN_BUY_TICKET' }),
-        getUserTickets: (tickets) => dispatch({ type: 'GET_USER_TICKETS', payload: tickets })
+        openReferralCode: () => dispatch({ type: 'OPEN_REFERRAL_CODE' }),
+        updateUserTickets: (tickets) => dispatch({ type: 'UPDATE_TICKETS', tickets }),
+        getUserTickets: (tickets) => dispatch({ type: 'GET_USER_TICKETS', payload: tickets }),
+        updateBalanceAndTokens: (balance, tokens) => dispatch({ type: 'UPDATE_REALTIME_DATA', balance, tokens }),
     };
 }
 

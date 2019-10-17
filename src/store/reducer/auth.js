@@ -8,6 +8,9 @@ const initialState = {
     qrCode: null,
     referralCode: null,
     bitsianId: null,
+    userBalance: null,
+    userTokens: null,
+    userTickets: null,
     errorMessage: null
 }
 
@@ -30,7 +33,20 @@ const logins = (state = initialState, action) => {
             qrCode: action.qrCode,
             referralCode: action.referralCode,
             bitsianId: action.bitsianId
+        }
     }
+    if ( type === login.UPDATE_REALTIME_DATA ) {
+        return {
+            ...state,
+            userBalance: action.balance,
+            userTokens: action.tokens
+        }
+    }
+    if ( type === login.UPDATE_TICKETS ) {
+        return {
+            ...state,
+            userTickets: action.tickets
+        }
     }
     return {
         ...state,

@@ -4,7 +4,8 @@ const initialState = {
     isQRcodeOpen: false,
     isAddMoneyOpen: false,
     isSendMoneyOpen: false,
-    isBuyTicketOpen: false
+    isBuyTicketOpen: false,
+    isReferralOpen: false
 }
 
 const transactions = (state = initialState, action) => {
@@ -30,6 +31,11 @@ const transactions = (state = initialState, action) => {
             return {
                 ...initialState,
                 isQRcodeOpen: true
+            }
+        case transaction.OPEN_REFERRAL_CODE:
+            return {
+                ...initialState,
+                isReferralOpen: true
             }
         case transaction.CLOSE_TRANSACTION:
             return {

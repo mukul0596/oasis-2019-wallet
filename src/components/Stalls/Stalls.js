@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import '../Page.css';
 import './Stalls.css';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, ListItemSecondaryAction, IconButton, makeStyles } from '@material-ui/core';
+import { List, ListItem,  ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class Stalls extends Component {
