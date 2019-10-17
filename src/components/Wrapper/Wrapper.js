@@ -65,7 +65,6 @@ class Wrapper extends Component {
 const mapStateToProp = state => {
     return {
         loggedIn: state.auth.loggedIn,
-        
         errorMessage: state.auth.errorMessage,
         isQRcodeOpen: state.transaction.isQRcodeOpen,
         isAddMoneyOpen: state.transaction.isAddMoneyOpen,
