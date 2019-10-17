@@ -58,13 +58,13 @@ class StallItem extends Component {
 
     discount(item) {
         if(item.current_discount)
-            return <div>₹ {item.price}</div>
+            return <span>₹ {item.price}</span>
         else {
             return (
-                <div style ={{display: 'flex'}}>
+                <span style ={{display: 'flex'}}>
                     <strike>₹ {item.price}</strike>
-                    <div className="discount" style={{marginLeft: '10px'}}>₹ {item.price - item.current_discount}</div>
-                </div>
+                    <span className="discount" style={{marginLeft: '10px'}}>₹ {item.price - item.current_discount}</span>
+                </span>
             )
         }
     }

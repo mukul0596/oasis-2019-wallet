@@ -38,13 +38,13 @@ class Cart extends Component {
 
     discount(price, current_discount) {
         if(current_discount)
-            return <div>₹ {price}</div>
+            return <span>₹ {price}</span>
         else {
             return (
-                <div style ={{display: 'flex'}}>
+                <span style ={{display: 'flex'}}>
                     <strike>₹ {price}</strike>
-                    <div className="discount" style={{marginLeft: '10px'}}>₹ {price - current_discount}</div>
-                </div>
+                    <span className="discount" style={{marginLeft: '10px'}}>₹ {price - current_discount}</span>
+                </span>
             )
         }
     }
