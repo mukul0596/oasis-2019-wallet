@@ -12,6 +12,9 @@ const orders = (state = initailState, action) => {
             orders: action.orders
         }
     }
+    if(type === order.CLEAR_ORDER) {
+        return initailState;
+    }
     else return state;
 }
 

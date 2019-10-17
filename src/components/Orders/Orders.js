@@ -8,13 +8,18 @@ import * as api from '../../constants/api';
 import Header from '../UI/Header/Header';
 import handleResponse from '../../utils/handleResponse';
 import Aux from '../hoc/Aux/Aux';
+import { bindActionCreators } from 'redux'
+
+import * as loader from '../../actionCreator/loader';
 
 import '../Page.css';
 import './Orders.css';
+import Loader from '../Loader/loader';
 
 class Orders extends Component {
     componentDidMount() {
-        request({
+    this.props.showLoader();
+    request({
             method: 'GET',
             url: api.GET_ORDERS,
             headers: {
@@ -38,6 +43,9 @@ class Orders extends Component {
     render() {
         console.log(this.props.orders)
             let orders;
+            let loader;
+            if(this.props.isLoading && !this.props.orders) loader = <Loader style={{height: '80%'}} />
+            else loader = [];
         if (this.props.orders) {
             orders = this.props.orders.map(order => {
                 return order.orders.map(ord => {
@@ -64,7 +72,7 @@ class Orders extends Component {
             <div className='Orders Page'>
                 <Header heading='Orders' subHeading='Know your past orders'>
                 </Header>
-
+                {loader}
                 <div className='OrdersContainer'>
                     { orders }
                 </div>
@@ -76,12 +84,15 @@ class Orders extends Component {
 const mapStateToProp = state => {
     return {
         orders: state.orders.orders,
-        jwt_token: state.auth.jwt_token
+        jwt_token: state.auth.jwt_token,
+        isLoading : state.loader.isLoading
     };
 };
 
 const mapDispatchToProp = dispatch => {
+    const action = bindActionCreators(Object.assign({}, loader), dispatch);
     return {
+        ...action,
         updateOrders: (orders) => dispatch({ type: 'UPDATE_ORDERS', orders })
     };
 }
