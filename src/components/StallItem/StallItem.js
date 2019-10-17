@@ -59,8 +59,8 @@ class StallItem extends Component {
     render() {
         let items, k = 0, des = [], loader, back;
         let desc = [];
-        console.log(this.props.isLoading)
-        if(this.props.isLoading && (!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart)) {
+        console.log((!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) || this.props.isLoading)
+        if(this.props.isLoading && Object.keys(this.props.menu).length == 0) {
             loader = <Loader style={{height: '80%'}} />;
             back = [];
         }
@@ -68,8 +68,8 @@ class StallItem extends Component {
             loader = [];
             back = <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('Stalls')}/>;
         }
-        console.log(this.props.cart)
-        if (!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) items = [];
+        console.log(this.props)
+        if ((!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) || this.props.isLoading) items = [];
         else {
             let availableItems = this.props.menu.filter(({ is_available }) => is_available);
             availableItems.map((item) => {

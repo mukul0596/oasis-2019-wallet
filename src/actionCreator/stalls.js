@@ -41,8 +41,9 @@ export const setVendors = (vendors) => (dispatch, getState) => {
 }
 
 export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
-    dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
+    dispatch(setStallMenu({ }, 0, ""))
     dispatch(loader.showLoader());
+    dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
     console.log(vendorId)
     request({
         method: 'GET',
@@ -58,9 +59,6 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
           try {
             body = JSON.parse(body)
             console.log(body);
-            dispatch({
-              type: loaders.HIDE_LOADER
-            })
             dispatch(setStallMenu(body,vendorId, vendorName))
           } catch (e) {
             throw new Error(e.message || "");

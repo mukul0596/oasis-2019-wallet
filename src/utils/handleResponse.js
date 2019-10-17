@@ -1,4 +1,9 @@
+import * as loader from '../actionCreator/loader';
+import store from '../store';
+const dispatch = store.dispatch;
+
 const handleResponse = (error, response, body, cb) => {
+  dispatch(loader.hideLoader());
   if (error || !response) {
     console.log('UNKNOWN ERROR: Contact administrator');
   }
