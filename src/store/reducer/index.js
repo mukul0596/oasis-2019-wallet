@@ -4,7 +4,7 @@ import activeTab from './activeTab';
 import transaction from './transaction';
 import stall from './stall';
 import userTickets from './userTickets';
-
+import loader from './loader';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -13,5 +13,6 @@ export default combineReducers({
     activeTab,
     transaction,
     stall,
-    userTickets
+    userTickets, 
+    loader
 })

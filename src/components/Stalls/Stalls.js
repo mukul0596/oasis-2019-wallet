@@ -8,14 +8,17 @@ import '../Page.css';
 import './Stalls.css';
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Loader from '../Loader/loader';
 
 class Stalls extends Component {
     componentDidMount(){
         this.props.getStalls();
     }
     render() {
-            let vendors;
+            let vendors, loader;
             console.log(this.props)
+            if(this.props.isLoading && !this.props.vendors) loader = <Loader style={{height: '65%'}} />
+            else loader = []; 
             if(!this.props.vendors) vendors = [];
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
@@ -45,6 +48,7 @@ class Stalls extends Component {
                     <Header heading='Stalls' subHeading='Order food using wallet'>
                         <i className="fa fa-search SearchIcon"></i>
                     </Header>
+                    {loader}
                     <List>
                         {vendors}
                     </List>
@@ -59,7 +63,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-    vendors: state.stall.vendors
+    vendors: state.stall.vendors,
+    isLoading: state.loader.isLoading
 })
 
 

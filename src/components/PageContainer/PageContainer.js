@@ -6,6 +6,7 @@ import Stalls from '../Stalls/Stalls';
 import Cart from '../Cart/Cart';
 import Orders from '../Orders/Orders';
 import StallItem from '../StallItem/StallItem';
+import Loader from '../Loader/loader';
 import More from '../More/More';
 
 class PageConatiner extends Component {

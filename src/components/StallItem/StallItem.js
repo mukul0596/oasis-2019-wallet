@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { List, ListItem, ListItemText, ListItemSecondaryAction, ListItemIcon, ListSubheader } from '@material-ui/core';
 import '../Page.css';
 import './StallItem.css';
+import Loader from '../Loader/loader';
 
 class StallItem extends Component {
 
@@ -56,8 +57,17 @@ class StallItem extends Component {
     }
 
     render() {
-        let items, k = 0, des = [];
+        let items, k = 0, des = [], loader, back;
         let desc = [];
+        console.log(this.props.isLoading)
+        if(this.props.isLoading && (!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart)) {
+            loader = <Loader style={{height: '80%'}} />;
+            back = [];
+        }
+        else { 
+            loader = [];
+            back = <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('Stalls')}/>;
+        }
         console.log(this.props.cart)
         if (!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) items = [];
         else {
@@ -113,8 +123,9 @@ class StallItem extends Component {
         return(
             <div className="stallMenu Page">
                 <Header heading={this.props.activeVendor}>
-                    <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('Stalls')}/>
+                    {back}
                 </Header>
+                {loader}
                 {items}
             </div>
         );
@@ -133,7 +144,8 @@ const mapStateToProps = state => ({
     menu: state.stall.menu,
     activeVendor: state.stall.activeVendor,
     activeVendorId: state.stall.activeVendorId,
-    cart: state.carts.cart
+    cart: state.carts.cart,
+    isLoading: state.loader.isLoading
 
 })
 

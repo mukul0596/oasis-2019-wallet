@@ -2,9 +2,12 @@ import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as stall from '../store/actions/stalls';
+import * as loader from './loader';
+import * as loaders from '../store/actions/loader';
 
 export const getStalls = () => (dispatch, getState) => {
     console.log('GET VENDORS')
+    dispatch(loader.showLoader());
     request({
         method: 'GET',
         url: api.GET_VENDORS,
@@ -19,6 +22,9 @@ export const getStalls = () => (dispatch, getState) => {
           try {
             body = JSON.parse(body)
             console.log(body);
+            dispatch({
+              type: loaders.HIDE_LOADER
+            })
             dispatch(setVendors(body))
           } catch (e) {
             throw new Error(e.message || "");
@@ -35,6 +41,8 @@ export const setVendors = (vendors) => (dispatch, getState) => {
 }
 
 export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
+    dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
+    dispatch(loader.showLoader());
     console.log(vendorId)
     request({
         method: 'GET',
@@ -50,8 +58,10 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
           try {
             body = JSON.parse(body)
             console.log(body);
+            dispatch({
+              type: loaders.HIDE_LOADER
+            })
             dispatch(setStallMenu(body,vendorId, vendorName))
-            dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
           } catch (e) {
             throw new Error(e.message || "");
           }
