@@ -2,13 +2,8 @@
     display: flex !important;
     align-items: center !important;
 }
-.MuiListItemText-multiline {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-} 
-.MuiTypography-root {
-    text-align: center !important;
+.contactName {
+    text-align: center;
 }
 .FullPage {
     height: 100%;

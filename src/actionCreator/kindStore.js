@@ -2,25 +2,19 @@ import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as kindStores from '../store/actions/kindStore';
+import * as loader from './loader';
 
 export const getKindStoreItems = () => (dispatch, getState) =>{
-    console.log(username, password)
-     // JUST FOR TESTING
-     if ( username === "mukul" && password === "12345") {
-        dispatch(changeLoginStatus(true, null))
-    }
+    dispatch(loader.showLoader());
     request({
-        method: 'POST',
-        url: api.LOGIN,
+        method: 'GET',
+        url: api.GET_KIND_STORE_ITEMS,
         headers: {
             'Content-Type': 'application/json',
             'X-Wallet-Token': api.WALLET_TOKEN,
             'Access-Control-Allow-Origin': '*',
             'Authorization': `JWT ${getState().auth.jwt_token}`,
         },
-        body: JSON.stringify({
-            username, password
-        })
     }, (error, response, body) => {
         handleResponse(error, response, body, () => {
             try {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../UI/Header/Header';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, ListItemIcon, ListSubheader, ListItemAvatar, Avatar } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core';
 
 import '../Page.css';
 import './Contact.css'

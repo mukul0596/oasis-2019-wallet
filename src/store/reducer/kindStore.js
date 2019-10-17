@@ -8,7 +8,7 @@ const kindStore = (state = initialState, action) => {
     if ( type === kindStores.SET_KIND_STORE ) {
         return {
             ...state,
-            items: action.items
+            kindStoreItems: action.items
         }; 
     }
     return state;

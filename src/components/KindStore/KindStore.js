@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../UI/Header/Header';
 import * as kindStore from '../../actionCreator/kindStore';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { bindActionCreators } from 'redux'
 
 import '../Page.css';
 import './KindStore.css'
+import Loader from '../Loader/loader';
 
 class More extends Component {
 
@@ -14,13 +16,27 @@ class More extends Component {
     }
 
     render() {
-        let items;
-
-        if(this.props.kindStore) {
-            items = contactArr.map((contact, ind) => {
+        let items, back;
+        let loader;
+        if(this.props.isLoading && !this.props.items) {
+            loader = <Loader style={{height: '80%'}} />;
+            back = [];
+        }
+        else { 
+            loader = [];
+            back = <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('More')}/>;
+        }
+        console.log(this.props)
+        if(this.props.items) {
+            items = this.props.items.items_list.map((item, ind) => {
                 return (
-                    <ListItem key={ind} alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
-                        <ListItemText className="contactName" style={{color: '#ffffff'}} primary='Hi' secondary='Hi' />
+                    <ListItem key={ind} alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '16px', marginBottom: '10px', borderRadius: '12px'}} >
+                        <ListItemText style={{color: '#ffffff'}} primary={item} />
+                        <ListItemSecondaryAction>
+                            <div edge="end" style={{color: '#ffffff'}}>
+                                { this.props.items[item].price }
+                            </div>
+                        </ListItemSecondaryAction>  
                     </ListItem>
                 )
             })
@@ -29,8 +45,9 @@ class More extends Component {
         return (
             <div className='More Page'>
                 <Header heading='Kind Store' subHeading=''>
-                    <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('More')}/>
+                    {back}
                 </Header>
+                {loader}
                 <List>
                     { items }
                 </List>
@@ -49,7 +66,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        kindStore: state.kindStore
+        items: state.kindStore.kindStoreItems,
+        isLoading: state.loader.isLoading
     }
 }
 

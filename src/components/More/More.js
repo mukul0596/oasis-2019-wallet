@@ -17,6 +17,7 @@ class More extends Component {
                     <ListItem alignItems="flex-start" className='stallItem' 
                                 onClick={(e) => {
                                 e.preventDefault();
+                                this.props.changeActiveTab('KindStore')
                             }
                         }>
                         <ListItemText style={{color: '#ffffff'}} primary='Kind Store' />
@@ -42,6 +43,7 @@ class More extends Component {
                     <ListItem alignItems="flex-start" className='stallItem' 
                                 onClick={(e) => {
                                 e.preventDefault();
+                                this.props.changeActiveTab('Developers')
                             }
                         }>
                         <ListItemText style={{color: '#ffffff'}} primary='Developers' />
