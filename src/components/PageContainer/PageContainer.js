@@ -5,11 +5,14 @@ import Profile from '../Profile/Profile';
 import Stalls from '../Stalls/Stalls';
 import Cart from '../Cart/Cart';
 import Orders from '../Orders/Orders';
+import StallItem from '../StallItem/StallItem';
+import Loader from '../Loader/loader';
 import More from '../More/More';
 
 class PageConatiner extends Component {
     render() {
         let activePage;
+        console.log(this.props.activeTab)
         switch (this.props.activeTab) {
             case 'Profile':
                 activePage = <Profile />
@@ -25,6 +28,9 @@ class PageConatiner extends Component {
         
             case 'Orders':
                 activePage = <Orders />
+                break;
+            case 'MenuItem':
+                activePage = <StallItem />
                 break;
 
             case 'More':

@@ -2,11 +2,14 @@ import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as auth from '../store/actions/auth';
+import * as cart from '../store/actions/cart';
 
 export const changeLoginStatus = (isLoggedIn, JWT, userName, userId, qrCode, referralCode, bitsianId) => (dispatch, getState) => {
 
     if (isLoggedIn) {
-      
+        dispatch({
+            type: cart.CART_CLEAR
+        })
     }
     dispatch({
       type: auth.SET_LOGIN,

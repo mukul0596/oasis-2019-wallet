@@ -13,6 +13,7 @@ export const LOGIN = `${API_ROOT}/auth`
 export const REFRESH_QR = `${API_ROOT}/auth/qr-code/refresh`
 
 export const GET_VENDORS = `${API_ROOT}/vendors/`
+export const GET_VENDOR_MENU_BY_ID = (vendorId) =>`${API_ROOT}/vendor/${vendorId}/items`
 
 export const GET_ORDERS = `${API_ROOT}/orders/`
 export const PLACE_ORDER = `${API_ROOT}/orders/`

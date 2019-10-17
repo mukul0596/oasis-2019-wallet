@@ -4,20 +4,29 @@ const initialState = {}
 
 const carts = (state = initialState, action) => {
   const { type } = action;
-
+  console.log(type)
   if (type === cart.ADD_TO_CART) {
     let newState;
-    if (state[action.stallId]) {
+    console.log(state.totalItems, state.totalPrice, action.price, 1)
+    console.log(state)
+    if (state.cart[action.stallId]) {
       newState = {
         ...state,
-        [action.stallId]: {
-          ...state[action.stallId],
-          items: {
-            ...state[action.stallId].items,
-            [action.itemId]: {
-              itemName: action.itemName,
-              price: action.price,
-              quantity: 1
+        totalItems: state.totalItems + 1,
+        totalPrice: state.totalPrice + action.price - action.discount,
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            ...state.cart[action.stallId],
+            items: {
+              ...state.cart[action.stallId].items,
+              [action.itemId]: {
+                itemName: action.itemName,
+                price: action.price,
+                quantity: 1,
+                discount: action.discount,
+                isVeg: action.isVeg
+              }
             }
           }
         }
@@ -26,31 +35,45 @@ const carts = (state = initialState, action) => {
     else {
       newState = {
         ...state,
-        [action.stallId]: {
-          stallName: action.stallName,
-          items: {
-            [action.itemId]: {
-              itemName: action.itemName,
-              price: action.price,
-              quantity: 1
+        totalItems: state.totalItems + 1,
+        totalPrice: state.totalPrice + action.price - action.discount,
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            stallName: action.stallName,
+            items: {
+              [action.itemId]: {
+                itemName: action.itemName,
+                price: action.price,
+                discount: action.discount,
+                quantity: 1,
+                isVeg: action.isVeg
+              }
             }
           }
         }
       }
     }
+    console.log(newState, state)
     return newState;
   }
 
   else if (type === cart.INC_QTY) {
+    console.log(state)
     return {
       ...state,
-      [action.stallId]: {
-        ...state[action.stallId],
-        items: {
-          ...state[action.stallId].items,
-          [action.itemId]: {
-            ...state[action.stallId].items[action.itemId],
-            quantity: state[action.stallId].items[action.itemId].quantity + 1
+      totalItems: state.totalItems + 1,
+      totalPrice: state.totalPrice + state.cart[action.stallId].items[action.itemId].price - state.cart[action.stallId].items[action.itemId].discount,
+      cart: {
+          ...state.cart,
+          [action.stallId]: {
+          ...state.cart[action.stallId],
+          items: {
+            ...state.cart[action.stallId].items,
+            [action.itemId]: {
+              ...state.cart[action.stallId].items[action.itemId],
+              quantity: state.cart[action.stallId].items[action.itemId].quantity + 1
+            }
           }
         }
       }
@@ -60,27 +83,32 @@ const carts = (state = initialState, action) => {
   else if (type === cart.DEC_QTY) {
 
     let newState = { ...state }
-    if (state[action.stallId] && state[action.stallId].items[action.itemId]) {
+    if (state.cart[action.stallId] && state.cart[action.stallId].items[action.itemId]) {
       newState = {
         ...state,
-        [action.stallId]: {
-          ...state[action.stallId],
-          items: {
-            ...state[action.stallId].items,
-            [action.itemId]: {
-              ...state[action.stallId].items[action.itemId],
-              quantity: state[action.stallId].items[action.itemId].quantity - 1
+        totalItems: state.totalItems - 1,
+        totalPrice: state.totalPrice - state.cart[action.stallId].items[action.itemId].price + state.cart[action.stallId].items[action.itemId].discount,
+        cart: {
+          ...state.cart,
+          [action.stallId]: {
+            ...state.cart[action.stallId],
+            items: {
+              ...state.cart[action.stallId].items,
+              [action.itemId]: {
+                ...state.cart[action.stallId].items[action.itemId],
+                quantity: state.cart[action.stallId].items[action.itemId].quantity - 1
+              }
             }
           }
         }
       }
   
-      if (newState[action.stallId].items[action.itemId].quantity === 0) {
-        delete newState[action.stallId].items[action.itemId];
+      if (newState.cart[action.stallId].items[action.itemId].quantity === 0) {
+        delete newState.cart[action.stallId].items[action.itemId];
       }
   
-      if (Object.keys(newState[action.stallId].items).length <= 0) {
-        delete newState[action.stallId];
+      if (Object.keys(newState.cart[action.stallId].items).length <= 0) {
+        delete newState.cart[action.stallId];
       }
     }
 
@@ -88,7 +116,13 @@ const carts = (state = initialState, action) => {
   }
 
   else if (type === cart.CART_CLEAR) {
-    return {}
+    console.log(action)
+    return {
+      ...state,
+      totalItems: 0,
+      totalPrice: 0,
+      cart: { }
+    }
   }
 
   return {

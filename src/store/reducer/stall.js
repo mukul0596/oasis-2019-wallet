@@ -13,6 +13,14 @@ const stalls = (state = initailState, action) => {
             vendors: action.vendors
         }
     }
+    else if(type === stall.SET_VENDOR_MENU){
+        return{
+            ...state,
+            activeVendor: action.vendor,
+            menu: action.menu,
+            activeVendorId: action.vendorId,
+        }
+    }
     else return state;
 }
 

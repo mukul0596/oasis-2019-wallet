@@ -6,31 +6,35 @@ import { bindActionCreators } from 'redux'
 
 import '../Page.css';
 import './Stalls.css';
-import { List, ListItem,  ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Loader from '../Loader/loader';
 
 class Stalls extends Component {
     componentDidMount(){
         this.props.getStalls();
     }
-    componentDidUpdate(){
-        console.log(this.props)
-    }
     render() {
-            let vendors;
+            let vendors, loader;
             console.log(this.props)
+            if(this.props.isLoading && !this.props.vendors) loader = <Loader style={{height: '65%'}} />
+            else loader = []; 
             if(!this.props.vendors) vendors = [];
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
                 vendors = openVendors.map(({id, name, description}) => {
-                    {console.log(name)}
-                    return(<ListItem key={id} alignItems="flex-start" className='stallItem'>
+                    return(<ListItem key={id} alignItems="flex-start" className='stallItem' 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.props.getStallItem(id, name);
+                        }
+                    }>
                         {/* <ListItemAvatar>
                             <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
                         </ListItemAvatar> */}
                         <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end">
                                 <ArrowForwardIosIcon style={{fill: 'white'}} />
                             </IconButton>
                         </ListItemSecondaryAction>
@@ -44,6 +48,7 @@ class Stalls extends Component {
                     <Header heading='Stalls' subHeading='Order food using wallet'>
                         <i className="fa fa-search SearchIcon"></i>
                     </Header>
+                    {loader}
                     <List>
                         {vendors}
                     </List>
@@ -58,7 +63,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-    vendors: state.stall.vendors
+    vendors: state.stall.vendors,
+    isLoading: state.loader.isLoading
 })
 
 
