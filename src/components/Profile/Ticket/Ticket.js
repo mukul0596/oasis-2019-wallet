@@ -16,7 +16,6 @@ const ticket = (props) => {
             </tr>
         )
     });
-    console.log(tBody);
     return (
         <div className='Ticket'>
             <div className='TicketHeading'>Tickets</div>

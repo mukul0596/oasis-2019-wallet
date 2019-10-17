@@ -265,6 +265,14 @@ class DialogBoxContainer extends Component {
                 </Aux>
             )
         }
+        if (this.props.isReferralOpen) {
+            dialogBox = (
+                <Aux>
+                    <div className='DialogBoxHeading'>Referral Code</div>
+                    <div className='ShowName'>{ this.props.referralCode }</div>
+                </Aux>
+            )
+        }
         if (this.props.isBuyTicketOpen) {
             if (this.state.combosTickets.length === 0 && this.state.showsTickets.length === 0)
                 this.getAllShows();
@@ -298,6 +306,7 @@ class DialogBoxContainer extends Component {
             //         </div>
             //     )
             // });
+
             dialogBox = (
                 <Aux>
                     <div className='CombosTickets'>
@@ -308,7 +317,7 @@ class DialogBoxContainer extends Component {
                     </div> */}
                     <div className='TicketFooter'>
                         <div className='totalTicketPrice'>&#8377; { this.state.ticketPrice }</div>
-                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.buyTickets() }>Buy</Button>
+                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '12px' }} click={ () => this.buyTickets() }>Buy</Button>
                     </div>
                 </Aux>
             )
@@ -329,8 +338,10 @@ const mapStateToProp = state => {
         isAddMoneyOpen: state.transaction.isAddMoneyOpen,
         isSendMoneyOpen: state.transaction.isSendMoneyOpen,
         isBuyTicketOpen: state.transaction.isBuyTicketOpen,
+        isReferralOpen: state.transaction.isReferralOpen,
         qrCode: state.auth.qrCode,
-        bitsianId: state.auth.bitsianId
+        bitsianId: state.auth.bitsianId,
+        referralCode: state.auth.referralCode
     };
 };
 
