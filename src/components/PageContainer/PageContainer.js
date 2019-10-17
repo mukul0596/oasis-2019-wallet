@@ -6,8 +6,8 @@ import Stalls from '../Stalls/Stalls';
 import Cart from '../Cart/Cart';
 import Orders from '../Orders/Orders';
 import StallItem from '../StallItem/StallItem';
-import Loader from '../Loader/loader';
 import More from '../More/More';
+import Contact from '../Contact/Contact';
 
 class PageConatiner extends Component {
     render() {
@@ -35,6 +35,10 @@ class PageConatiner extends Component {
 
             case 'More':
                 activePage = <More />
+                break;
+            
+            case 'Contact':
+                activePage = <Contact />
                 break;
         
             default:

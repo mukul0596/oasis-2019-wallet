@@ -23,22 +23,23 @@ class Stalls extends Component {
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
                 vendors = openVendors.map(({id, name, description}) => {
-                    return(<ListItem key={id} alignItems="flex-start" className='stallItem' 
-                        onClick={(e) => {
-                            e.preventDefault();
-                            this.props.getStallItem(id, name);
-                        }
-                    }>
-                        {/* <ListItemAvatar>
-                            <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
-                        </ListItemAvatar> */}
-                        <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
-                        <ListItemSecondaryAction>
-                            <IconButton edge="end">
-                                <ArrowForwardIosIcon style={{fill: 'white'}} />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
+                    return (
+                            <ListItem key={id} alignItems="flex-start" className='stallItem' 
+                                onClick={(e) => {
+                                e.preventDefault();
+                                this.props.getStallItem(id, name);
+                                }
+                            }>
+                                {/* <ListItemAvatar>
+                                    <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
+                                </ListItemAvatar> */}
+                                <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
+                                <ListItemSecondaryAction>
+                                    <IconButton edge="end">
+                                        <ArrowForwardIosIcon style={{fill: 'white'}} />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                        </ListItem>
                     )
                 })
                 console.log(vendors)

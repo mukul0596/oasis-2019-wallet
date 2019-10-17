@@ -1,0 +1,7 @@
+.MuiListItem-root {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.MuiListItemText-primary {
+    font-size: 18px !important;
+}

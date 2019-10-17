@@ -40,7 +40,7 @@ class Profile extends Component {
     }
     render() {
         let ticket;
-        if(this.props.isLoading) {
+        if(this.props.isLoading && !this.props.userTickets) {
             ticket = <Loader style={{height: '30%'}} />
         }
         else {
