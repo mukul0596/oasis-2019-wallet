@@ -21,14 +21,15 @@ export const clearCart = () => (dispatch, getState) => {
     })
 }
 
-export const addNewItemToCart = (stallName, stallId, itemName, itemId, price, isVeg) => ({
+export const addNewItemToCart = (stallName, stallId, itemName, itemId, price, isVeg, discount) => ({
     type: cart.ADD_TO_CART,
     stallName,
     stallId,
     itemName,
     itemId,
     price,
-    isVeg
+    isVeg,
+    discount
 });
   
 export const addToCart = (stallName, stallId, itemName, itemId, price) => (dispatch, getState) => {

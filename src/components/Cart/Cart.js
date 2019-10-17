@@ -36,6 +36,19 @@ class Cart extends Component {
         this.props.decreaseQty(vendor_id, item_id)
     }
 
+    discount(price, current_discount) {
+        if(current_discount)
+            return <div>₹ {price}</div>
+        else {
+            return (
+                <div style ={{display: 'flex'}}>
+                    <strike>₹ {price}</strike>
+                    <div className="discount" style={{marginLeft: '10px'}}>₹ {price - current_discount}</div>
+                </div>
+            )
+        }
+    }
+
     isVeg(isVeg) {
         if(isVeg)
             return require('../../assets/images/veg.png')
@@ -80,7 +93,7 @@ class Cart extends Component {
                                     <ListItemIcon>
                                         <img src={this.isVeg(this.props.cart[key].items[newKey].isVeg)} alt="" style={{width: '24px'}} />
                                     </ListItemIcon>
-                                    <ListItemText key={newKey} className="stallName" style={{color: '#ffffff'}} primary={this.props.cart[key].items[newKey].itemName} secondary={'₹ '+this.props.cart[key].items[newKey].price} />
+                                    <ListItemText key={newKey} className="stallName" style={{color: '#ffffff'}} primary={this.props.cart[key].items[newKey].itemName} secondary={this.discount(this.props.cart[key].items[newKey].price, this.props.cart[key].items[newKey].discount)} />
                                     <ListItemSecondaryAction>
                                         <div edge="end">
                                             {/* <RemoveCircle style={{color: '#ffffff'}} />

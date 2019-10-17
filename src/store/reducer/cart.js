@@ -13,7 +13,7 @@ const carts = (state = initialState, action) => {
       newState = {
         ...state,
         totalItems: state.totalItems + 1,
-        totalPrice: state.totalPrice + action.price,
+        totalPrice: state.totalPrice + action.price - action.discount,
         cart: {
           ...state.cart,
           [action.stallId]: {
@@ -24,6 +24,7 @@ const carts = (state = initialState, action) => {
                 itemName: action.itemName,
                 price: action.price,
                 quantity: 1,
+                discount: action.discount,
                 isVeg: action.isVeg
               }
             }
@@ -35,7 +36,7 @@ const carts = (state = initialState, action) => {
       newState = {
         ...state,
         totalItems: state.totalItems + 1,
-        totalPrice: state.totalPrice + action.price,
+        totalPrice: state.totalPrice + action.price - action.discount,
         cart: {
           ...state.cart,
           [action.stallId]: {
@@ -44,6 +45,7 @@ const carts = (state = initialState, action) => {
               [action.itemId]: {
                 itemName: action.itemName,
                 price: action.price,
+                discount: action.discount,
                 quantity: 1,
                 isVeg: action.isVeg
               }
@@ -61,7 +63,7 @@ const carts = (state = initialState, action) => {
     return {
       ...state,
       totalItems: state.totalItems + 1,
-      totalPrice: state.totalPrice + state.cart[action.stallId].items[action.itemId].price,
+      totalPrice: state.totalPrice + state.cart[action.stallId].items[action.itemId].price - state.cart[action.stallId].items[action.itemId].discount,
       cart: {
           ...state.cart,
           [action.stallId]: {
@@ -85,7 +87,7 @@ const carts = (state = initialState, action) => {
       newState = {
         ...state,
         totalItems: state.totalItems - 1,
-        totalPrice: state.totalPrice - state.cart[action.stallId].items[action.itemId].price,
+        totalPrice: state.totalPrice - state.cart[action.stallId].items[action.itemId].price + state.cart[action.stallId].items[action.itemId].discount,
         cart: {
           ...state.cart,
           [action.stallId]: {

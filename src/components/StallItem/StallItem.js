@@ -38,7 +38,7 @@ class StallItem extends Component {
 
     addNewItem(item) {
         console.log(item)
-        this.props.addNewItemToCart(this.props.activeVendor, item.vendor_id, item.name, item.id, item.price, item.is_veg)
+        this.props.addNewItemToCart(this.props.activeVendor, item.vendor_id, item.name, item.id, item.price, item.is_veg, item.current_discount)
     }
 
     incrementQuantity(item) {
@@ -54,6 +54,19 @@ class StallItem extends Component {
             return require('../../assets/images/veg.png')
         else 
             return require('../../assets/images/nonveg.png')
+    }
+
+    discount(item) {
+        if(item.current_discount)
+            return <div>₹ {item.price}</div>
+        else {
+            return (
+                <div style ={{display: 'flex'}}>
+                    <strike>₹ {item.price}</strike>
+                    <div className="discount" style={{marginLeft: '10px'}}>₹ {item.price - item.current_discount}</div>
+                </div>
+            )
+        }
     }
 
     render() {
@@ -93,13 +106,13 @@ class StallItem extends Component {
                     }>
                      {
                         desc[key].map((item) => {
-                            {console.log(item.id)}
+                            {console.log(item)}
                             return (
                                 <ListItem>
                                     <ListItemIcon>
                                         <img src={this.isVeg(item)} alt="" style={{width: '24px'}} />
                                     </ListItemIcon>
-                                    <ListItemText key={item.id} className="stallName" style={{color: '#ffffff'}} primary={item.name} secondary={'₹ '+item.price} />
+                                    <ListItemText key={item.id} className="stallName" style={{color: '#ffffff'}} primary={item.name} secondary={this.discount(item)} />
                                     <ListItemSecondaryAction>
                                         <div edge="end">
                                             {/* <RemoveCircle style={{color: '#ffffff'}} />
