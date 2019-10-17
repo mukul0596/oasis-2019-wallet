@@ -57,6 +57,7 @@ class Profile extends Component {
     }
     render() {
         let ticket;
+        console.log(this.props)
         if(this.props.isLoading && !this.props.userTickets) {
             ticket = <Loader style={{height: '30%'}} />
         }
@@ -101,7 +102,8 @@ const mapStateToProp = state => {
         // userTickets: state.auth.userTickets,
         userTickets: state.userTickets.userTickets,
         userBalance: state.auth.userBalance,
-        userTokens: state.auth.userTokens
+        userTokens: state.auth.userTokens,
+        isLoading: state.loader.isLoading
     };
 };
 

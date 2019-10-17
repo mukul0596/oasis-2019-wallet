@@ -9,6 +9,7 @@ import StallItem from '../StallItem/StallItem';
 import More from '../More/More';
 import Contact from '../Contact/Contact';
 import KindStore from '../KindStore/KindStore';
+import Developer from '../Developer/Developer';
 
 class PageConatiner extends Component {
     render() {
@@ -45,7 +46,11 @@ class PageConatiner extends Component {
             case 'KindStore':
                 activePage = <KindStore />
                 break;
-                
+
+            case 'Developers': 
+                activePage = <Developer />
+                break;
+
             default:
                 activePage = null;
                 break;

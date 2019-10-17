@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QRCode from 'qrcode-react';
 import request from 'request';
+import { bindActionCreators } from 'redux'
 
 import * as api from '../../constants/api';
 import handleResponse from '../../utils/handleResponse';
 import Aux from '../hoc/Aux/Aux';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
-import AddButton from '../UI/AddButton/AddButton';
+import * as profShow from '../../actionCreator/profShows';
 
 import './DialogBoxContainer.css';
 
@@ -19,8 +20,8 @@ class DialogBoxContainer extends Component {
         userId: null,
         combosTickets: [],
         showsTickets: [],
-        combos: {},
-        ticketPrice: 0
+        totalPrice: 0,
+        cart: {}
     }
     addMoneyHandler(e) {
         e.preventDefault();
@@ -43,7 +44,6 @@ class DialogBoxContainer extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
                     this.setState({ amountToBeAdded: null });
                     this.props.closeTransaction();
                 } catch (e) {
@@ -79,7 +79,6 @@ class DialogBoxContainer extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
                     this.setState({ userId: null, amountToBeSent: null });
                     this.props.closeTransaction();
                 } catch (e) {
@@ -87,6 +86,79 @@ class DialogBoxContainer extends Component {
                 }
             })
         });
+    }
+
+    addNewCombo(id, price) {
+        console.log(this.state, id, price)
+        this.setState({...this.state, 
+            totalPrice: this.state.totalPrice + price,
+            cart: {
+            ...this.state.cart,
+            [id]: 1
+        }})
+    }
+
+    add(id, price) {
+        console.log(this.state, id, price)
+        this.setState({
+            ...this.state,
+            totalPrice: this.state.totalPrice + price,
+            cart: {
+                ...this.state.cart,
+                [id]: this.state.cart[id] + 1
+            }
+        })
+    }
+
+    minus(id, price) {
+        console.log(this.state, id, price)
+        if(this.state.cart[id] == 1) {
+            let newState = this.state;
+            delete newState.cart[id];
+            this.setState({
+                ...newState,
+                totalPrice: this.state.totalPrice - price,                
+            });
+        }
+        else {
+            this.setState({
+                ...this.state, 
+                totalPrice: this.state.totalPrice - price,
+                cart: {
+                    ...this.state.cart,
+                    [id]: this.state.cart[id] - 1
+                }
+            })
+        }
+    }
+
+    AddButton(id, price) {
+        if (!this.state.cart[id]) {
+            return (
+                <button 
+                    className='AddButton'
+                    onClick={ () => this.addNewCombo(id, price) }
+                    disabled={ this.props.disabled }
+                    style={ this.props.style }>ADD +</button>
+            );
+        }
+        else {
+            return (
+                <div className='CounterButtonContainer'>
+                    <button 
+                        className='CounterButton'
+                        onClick={ () => this.minus(id, price) }
+                        disabled={ this.props.disabled }
+                        style={ this.props.style }>-</button>
+                    { this.state.cart[id] }
+                    <button 
+                        className='CounterButton'
+                        onClick={ () => this.add(id, price) }
+                        disabled={ this.props.disabled }
+                        style={ this.props.style }>+</button>
+                </div>
+            );
+        }
     }
 
     getAllShows() {
@@ -105,104 +177,6 @@ class DialogBoxContainer extends Component {
                     body = JSON.parse(body)
                     console.log(body)
                     this.setState({ combosTickets: body.combos, showsTickets: body.shows });
-                } catch (e) {
-                    throw new Error(e.message || "");
-                }
-            })
-        });
-    }
-
-    changeComboTicketCounter(id, price) {
-        if(this.state.combos[id]){
-            this.setState({...this.state, combos: {
-                ...this.state.combos,
-                [id]: this.state.combos[id] + 1
-            }})
-        }
-        console.log(this.state)
-    }
-
-    changeShowsTicketCounter(id, price) {
-        this.setState({ showsTicketCounter: [...this.state.showsTicketCounter, id], ticketPrice: this.state.ticketPrice + price });
-    }
-
-    buyTickets() {
-        let Combos = [...this.state.comboTicketCounter];
-        let Shows = [...this.state.showsTicketCounter];
-        if (Combos.length === 0 && Shows.length === 0) {
-            alert ("Please select a ticket to buy!");
-            return;
-        }
-        let dupCombos = [Combos[0]];
-        let dupShows = [Shows[0]];
-        for (let i = 1; i < Combos.length; i++) {
-            let isPresent = false;
-            for (let j = 0; j < dupCombos.length; j++) {
-                if (Combos[i] === dupCombos[j]) {
-                    isPresent = true;
-                    break;
-                }
-            }
-            if (!isPresent) {
-                dupCombos.push(Combos[i]);
-            }
-        }
-        for (let i = 1; i < Shows.length; i++) {
-            let isPresent = false;
-            for (let j = 0; j < dupShows.length; j++) {
-                if (Shows[i] === dupShows[j]) {
-                    isPresent = true;
-                    break;
-                }
-            }
-            if (!isPresent) {
-                dupShows.push(Shows[i]);
-            }
-        }
-        let combosTickets = {};
-        let showsTickets = [];
-        for (let i = 0; i < dupCombos.length; i++) {
-            let c = 0;
-            for (let j = 0; j < Combos.length; j++) {
-                if (dupCombos[i] === Combos[j])
-                    c++;
-            }
-            combosTickets[i] = c;
-        }
-        for (let i = 0; i < dupShows.length; i++) {
-            let c = 0;
-            for (let j = 0; j < Shows.length; j++) {
-                if (dupShows[i] === Shows[j])
-                    c++;
-            }
-            let obj = {};
-            obj[dupShows[i]] = c;
-            showsTickets.push(obj);
-        }
-        let body = {
-            'combos': combosTickets,
-            'individual': {}
-        }
-        console.log(body)
-        console.log("Combos: ", combosTickets)
-        console.log("Shows: ", showsTickets)
-        request({
-            method: 'POST',
-            url: api.BUY_TICKETS,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Wallet-Token': api.WALLET_TOKEN,
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': 'JWT '+this.props.jwt_token
-            },
-            body: JSON.stringify(body)
-        }, (error, response, body) => {
-            handleResponse(error, response, body, () => {
-                try {
-                    body = JSON.parse(body)
-                    this.setState({ comboTicketCounter: [], showsTicketCounter: [] });
-                    this.props.closeTransaction();
-                    
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -265,14 +239,6 @@ class DialogBoxContainer extends Component {
                 </Aux>
             )
         }
-        if (this.props.isReferralOpen) {
-            dialogBox = (
-                <Aux>
-                    <div className='DialogBoxHeading'>Referral Code</div>
-                    <div className='ShowName'>{ this.props.referralCode }</div>
-                </Aux>
-            )
-        }
         if (this.props.isBuyTicketOpen) {
             if (this.state.combosTickets.length === 0 && this.state.showsTickets.length === 0)
                 this.getAllShows();
@@ -287,7 +253,7 @@ class DialogBoxContainer extends Component {
                                 { (this.props.bitsianId) ? ('₹ ' + combo.price) : (combo.allow_participants ? ('₹ ' + combo.price) : "Not available") }
                             </div>
                         </div>
-                        <AddButton click={ () => this.changeComboTicketCounter(combo.id, combo.price) } />
+                        {this.AddButton(combo.id, combo.price)}
                     </div>
                 )
             });
@@ -306,7 +272,6 @@ class DialogBoxContainer extends Component {
             //         </div>
             //     )
             // });
-
             dialogBox = (
                 <Aux>
                     <div className='CombosTickets'>
@@ -316,8 +281,8 @@ class DialogBoxContainer extends Component {
                         { shows }
                     </div> */}
                     <div className='TicketFooter'>
-                        <div className='totalTicketPrice'>&#8377; { this.state.ticketPrice }</div>
-                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '12px' }} click={ () => this.buyTickets() }>Buy</Button>
+                        <div className='totalTicketPrice'>&#8377; { this.state.totalPrice }</div>
+                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.props.buyProfShow(this.state.cart) }>Buy</Button>
                     </div>
                 </Aux>
             )
@@ -338,15 +303,15 @@ const mapStateToProp = state => {
         isAddMoneyOpen: state.transaction.isAddMoneyOpen,
         isSendMoneyOpen: state.transaction.isSendMoneyOpen,
         isBuyTicketOpen: state.transaction.isBuyTicketOpen,
-        isReferralOpen: state.transaction.isReferralOpen,
         qrCode: state.auth.qrCode,
-        bitsianId: state.auth.bitsianId,
-        referralCode: state.auth.referralCode
+        bitsianId: state.auth.bitsianId
     };
 };
 
 const mapDispatchToProp = dispatch => {
+    const action = bindActionCreators(Object.assign({}, profShow), dispatch);
     return {
+        ...action,
         closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' })
     };
 }
