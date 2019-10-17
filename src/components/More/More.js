@@ -4,8 +4,8 @@ import Header from '../UI/Header/Header';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, ListItemIcon, ListSubheader } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-import './More.css'
 import '../Page.css';
+import './More.css'
 
 class More extends Component {
     render() {

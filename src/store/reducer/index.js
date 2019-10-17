@@ -5,6 +5,7 @@ import transaction from './transaction';
 import stall from './stall';
 import userTickets from './userTickets';
 import loader from './loader';
+import kindStore from './kindStore';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
     transaction,
     stall,
     userTickets, 
-    loader
+    loader,
+    kindStore
 })

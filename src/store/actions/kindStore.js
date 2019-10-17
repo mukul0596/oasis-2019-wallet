@@ -1,0 +1,1 @@
+export const SET_KIND_STORE = 'SET_KIND_STORE'

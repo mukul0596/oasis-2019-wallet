@@ -13,20 +13,9 @@ import './Navbar.css';
 class Navbar extends Component {
     render() {
         console.log(this.props)
-        if(this.props.activeTab != 'MenuItem'){
-            return (
-                <div className='Navbar'>
-                    <div className={ (this.props.activeTab === 'Profile') ? 'active' : null } onClick={() => this.props.changeActiveTab('Profile') }><ProfileIcon /></div>
-                    <div className={ (this.props.activeTab === 'Stalls') ? 'active' : null } onClick={() => this.props.changeActiveTab('Stalls') }><StallsIcon /></div>
-                    <div className={ (this.props.activeTab === 'Cart') ? 'active' : null } onClick={() => this.props.changeActiveTab('Cart') }><CartIcon /></div>
-                    <div className={ (this.props.activeTab === 'Orders') ? 'active' : null } onClick={() => this.props.changeActiveTab('Orders') }><OrdersIcon /></div>
-                    <div className={ (this.props.activeTab === 'More') ? 'active' : null } onClick={() => this.props.changeActiveTab('More') }><MoreIcon /></div>
-                </div>
-            );
-        }
-        else if(this.props.totalItems > 0) {
+        if(this.props.activeTab == 'MenuItem' && this.props.totalItems > 0){
             let items = this.props.totalItems > 1 ? `${this.props.totalItems} Items` : `${this.props.totalItems} Item`; 
-        
+            
             return (
                 <div className='Navbar'>
                     <div className="quantityPrice">
@@ -41,13 +30,25 @@ class Navbar extends Component {
                             <ArrowForwardIcon />
                     </div>
                 </div>
-            )
+            );
         }
-        else {
+        else if(this.props.activeTab == 'Contact' || this.props.activeTab == 'Developer' || this.props.activeTab == 'KindStore') {
             return (
                 <div></div>
             )
         }
+        else {
+            return (
+                <div className='Navbar'>
+                    <div className={ (this.props.activeTab === 'Profile') ? 'active' : null } onClick={() => this.props.changeActiveTab('Profile') }><ProfileIcon /></div>
+                    <div className={ (this.props.activeTab === 'Stalls') ? 'active' : null } onClick={() => this.props.changeActiveTab('Stalls') }><StallsIcon /></div>
+                    <div className={ (this.props.activeTab === 'Cart') ? 'active' : null } onClick={() => this.props.changeActiveTab('Cart') }><CartIcon /></div>
+                    <div className={ (this.props.activeTab === 'Orders') ? 'active' : null } onClick={() => this.props.changeActiveTab('Orders') }><OrdersIcon /></div>
+                    <div className={ (this.props.activeTab === 'More') ? 'active' : null } onClick={() => this.props.changeActiveTab('More') }><MoreIcon /></div>
+                </div>
+            )
+        }
+        
     }
 }
 
