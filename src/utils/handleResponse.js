@@ -6,7 +6,7 @@ const dispatch = store.dispatch;
 const handleResponse = (error, response, body, cb) => {
   dispatch(loader.hideLoader());
   if (error || !response) {
-    dispatch(message.updateMessage(error));
+    dispatch(message.updateMessage(error.message));
   }
   else if (response.statusCode === 200) {
     try {

@@ -50,8 +50,11 @@ class Orders extends Component {
     }
 
     makeOtpSeenHandler(e, orderId, otp) {
+        const body = {
+            'order_id': orderId
+        }
         request({
-            method: 'GET',
+            method: 'POST',
             url: api.MAKE_OTP_SEEN,
             headers: {
                 'Content-Type': 'application/json',
@@ -59,15 +62,12 @@ class Orders extends Component {
                 'Access-Control-Allow-Origin': '*',
                 'Authorization': 'JWT '+this.props.jwt_token
             },
-            body: {
-                'order-id': orderId
-            }
+            body: JSON.stringify(body)
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
                     body = JSON.parse(body)
                     console.log(body)
-                    e.target.innerHTML = otp;
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -89,6 +89,7 @@ class Orders extends Component {
         if (this.props.orders && this.props.realtimeOrders) {
             orders = this.props.orders.map(order => {
                 return order.orders.map(ord => {
+                    {console.log(ord)}
                     return (
                         <div className='OrdersCard' key={ ord['order-id'] }>
                             <div className='OrderName'>{ ord.vendor.name }</div>
