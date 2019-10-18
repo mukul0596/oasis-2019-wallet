@@ -1,7 +1,7 @@
 import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
-
+import * as message from './message';
 
 export const buyProfShow = (cart) => (dispatch, getState) => {
     if(!cart || !Object.keys(cart).length) 
@@ -25,6 +25,7 @@ export const buyProfShow = (cart) => (dispatch, getState) => {
             handleResponse(error, response, body, () => {
                 try {
                     // body = JSON.parse(body)
+                    dispatch(message.updateMessage('Tickets successfully bought!'))
                     dispatch(close());
                 } catch (e) {
                     throw new Error(e.message || "");

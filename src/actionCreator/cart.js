@@ -3,6 +3,7 @@ import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as cart from '../store/actions/cart';
 import * as loader from './loader';
+import * as message from './message';
 
 export const increaseQty = (stallId, itemId) => ({
     type: cart.INC_QTY,
@@ -77,6 +78,7 @@ export const placeOrder = () => (dispatch, getState) => {
           try {
             body = JSON.parse(body)
             console.log(body);
+            dispatch(message.updateMessage('Order placed successfully'))
             dispatch(clearCart())
           } catch (e) {
             throw new Error(e.message || "");
