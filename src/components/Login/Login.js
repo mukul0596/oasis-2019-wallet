@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
+import Aux from '../hoc/Aux/Aux';
 
 import { bindActionCreators } from 'redux'
 import './Login.css';
@@ -71,36 +72,44 @@ class Login extends Component{
         let button;
         console.log(this.props)
         if(this.props.isLoading) {
-            button = <Loader style={{height: '20%'}} />
+            button = <Loader style={{height: '30%'}} />
         }
         else {
             button = (
-                <form name="login" id="login-form">
-                    <div style={{display: 'flex'}}>
-                        <i className="fa fa-user" style={{display: 'flex', alignItems: 'center', fontSize: '1.25rem', color: '#ffffff'}}></i>
-                        <Input 
-                            type="text" 
-                            name="username" 
-                            placeholder="Username" 
-                            value={this.state.username} 
-                            onChange={e => this.setState({ username: e.target.value })} />
+                <Aux>
+                    <form name="login" id="login-form">
+                        <div style={{display: 'flex'}}>
+                            <i className="fa fa-user" style={{display: 'flex', alignItems: 'center', fontSize: '1.25rem', color: '#ffffff'}}></i>
+                            <Input 
+                                type="text" 
+                                name="username" 
+                                placeholder="Username" 
+                                value={this.state.username} 
+                                onChange={e => this.setState({ username: e.target.value })} />
+                        </div>
+                        <div style={{display: 'flex'}}>
+                            <i className="fa fa-lock" style={{display: 'flex', alignItems: 'center', fontSize: '1.25rem', color: '#ffffff'}}></i>
+                            <Input 
+                                type="password" 
+                                name="password" 
+                                placeholder="Password" 
+                                value={this.state.password} 
+                                onChange={e => this.setState({ password: e.target.value })} />
+                        </div>
+                        <Button click={(e) => {
+                                    e.preventDefault();
+                                    this.props.login(this.state.username, this.state.password)
+                                }
+                            }>
+                        Login</Button>
+                    </form>
+                    <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                        <hr size='1px' width='30%' color='#ffffff' />
+                        <div style={{fontSize: '1.25rem', color: '#ffffff', width: '10%', boxSizing: 'border-box', textAlign: 'center'}}> OR </div>
+                        <hr size='1px' width='30%' color='#ffffff' />
                     </div>
-                    <div style={{display: 'flex'}}>
-                        <i className="fa fa-lock" style={{display: 'flex', alignItems: 'center', fontSize: '1.25rem', color: '#ffffff'}}></i>
-                        <Input 
-                            type="password" 
-                            name="password" 
-                            placeholder="Password" 
-                            value={this.state.password} 
-                            onChange={e => this.setState({ password: e.target.value })} />
-                    </div>
-                    <Button click={(e) => {
-                                e.preventDefault();
-                                this.props.login(this.state.username, this.state.password)
-                            }
-                        }>
-                    Login</Button>
-                </form>
+                    <Button click={this.googleLogin}>Login using BITS Mail</Button>
+                </Aux>
             )
         }
         return (
@@ -109,12 +118,6 @@ class Login extends Component{
                 <h1>OASIS'19</h1>
                 <h2>Web Wallet</h2>
                 {button}
-                <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <hr size='1px' width='30%' color='#ffffff' />
-                    <div style={{fontSize: '1.25rem', color: '#ffffff', width: '10%', boxSizing: 'border-box', textAlign: 'center'}}> OR </div>
-                    <hr size='1px' width='30%' color='#ffffff' />
-                </div>
-                <Button click={this.googleLogin}>Login using BITS Mail</Button>
             </div>
         )
     }

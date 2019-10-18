@@ -2,13 +2,16 @@ import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as message from './message';
+import * as loader from './loader';
 
-export const buyProfShow = (cart) => (dispatch, getState) => {
-    if(!cart || !Object.keys(cart).length) 
+export const buyProfShow = (cart, showcart) => (dispatch, getState) => {
+    console.log(cart, showcart)
+    dispatch(loader.showLoader());
+    if(!cart || (!Object.keys(cart).length && !Object.keys(showcart).length)) 
             return;
         let body = {
             'combos': cart,
-            'individual': {}
+            'individual': showcart
         }
         console.log(body)
         request({

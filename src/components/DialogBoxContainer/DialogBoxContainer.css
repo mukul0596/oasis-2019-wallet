@@ -28,6 +28,10 @@
     justify-content: center;
 }
 
+.CombosTickets {
+    width: 100%;
+}
+
 .DialogBoxHeading {
     font-size: 1.75rem;
     color: #ffffff;

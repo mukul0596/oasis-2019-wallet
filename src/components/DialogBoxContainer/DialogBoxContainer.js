@@ -22,7 +22,8 @@ class DialogBoxContainer extends Component {
         combosTickets: [],
         showsTickets: [],
         totalPrice: 0,
-        cart: {}
+        cart: {},
+        showcart: {}
     }
     addMoneyHandler(e) {
         e.preventDefault();
@@ -92,80 +93,158 @@ class DialogBoxContainer extends Component {
         });
     }
 
-    addNewCombo(id, price) {
-        console.log(this.state, id, price)
-        this.setState({...this.state, 
-            totalPrice: this.state.totalPrice + price,
-            cart: {
-            ...this.state.cart,
-            [id]: 1
-        }})
-    }
-
-    add(id, price) {
-        console.log(this.state, id, price)
-        this.setState({
-            ...this.state,
-            totalPrice: this.state.totalPrice + price,
-            cart: {
+    addNewCombo(id, price, combo) {
+        if(combo) {
+            this.setState({...this.state, 
+                totalPrice: this.state.totalPrice + price,
+                cart: {
                 ...this.state.cart,
-                [id]: this.state.cart[id] + 1
-            }
-        })
-    }
-
-    minus(id, price) {
-        console.log(this.state, id, price)
-        if(this.state.cart[id] === 1) {
-            let newState = this.state;
-            delete newState.cart[id];
-            this.setState({
-                ...newState,
-                totalPrice: this.state.totalPrice - price,                
-            });
+                [id]: 1
+            }})
         }
         else {
+            this.setState({...this.state, 
+                totalPrice: this.state.totalPrice + price,
+                showcart: {
+                ...this.state.showcart,
+                [id]: 1
+            }})
+        }
+        console.log(this.state, id, price)
+        
+    }
+
+    add(id, price, combo) {
+        if(combo) {
             this.setState({
-                ...this.state, 
-                totalPrice: this.state.totalPrice - price,
+                ...this.state,
+                totalPrice: this.state.totalPrice + price,
                 cart: {
                     ...this.state.cart,
-                    [id]: this.state.cart[id] - 1
+                    [id]: this.state.cart[id] + 1
                 }
             })
         }
+        else {
+            this.setState({
+                ...this.state,
+                totalPrice: this.state.totalPrice + price,
+                showcart: {
+                    ...this.state.showcart,
+                    [id]: this.state.showcart[id] + 1
+                }
+            })
+        }
+        console.log(this.state, id, price)
+        
     }
 
-    AddButton(id, price) {
-        if (!this.state.cart[id]) {
-            return (
-                <button 
-                    className='AddButton'
-                    onClick={ () => this.addNewCombo(id, price) }
-                    disabled={ this.props.disabled }
-                    style={ this.props.style }>ADD +</button>
-            );
+    minus(id, price, combo) {
+        console.log(this.state, id, price)
+        if(combo){
+            if(this.state.cart[id] === 1) {
+                let newState = this.state;
+                delete newState.cart[id];
+                this.setState({
+                    ...newState,
+                    totalPrice: this.state.totalPrice - price,                
+                });
+            }
+            else {
+                this.setState({
+                    ...this.state, 
+                    totalPrice: this.state.totalPrice - price,
+                    cart: {
+                        ...this.state.cart,
+                        [id]: this.state.cart[id] - 1
+                    }
+                })
+            }
         }
         else {
-            return (
-                <div className='CounterButtonContainer'>
-                    <button 
-                        className='CounterButton'
-                        onClick={ () => this.minus(id, price) }
-                        disabled={ this.props.disabled }
-                        style={ this.props.style }>-</button>
-                    { this.state.cart[id] }
-                    <button 
-                        className='CounterButton'
-                        onClick={ () => this.add(id, price) }
-                        disabled={ this.props.disabled }
-                        style={ this.props.style }>+</button>
-                </div>
-            );
+            if(this.state.showcart[id] === 1) {
+                let newState = this.state;
+                delete newState.showcart[id];
+                this.setState({
+                    ...newState,
+                    totalPrice: this.state.totalPrice - price,                
+                });
+            }
+            else {
+                this.setState({
+                    ...this.state, 
+                    totalPrice: this.state.totalPrice - price,
+                    showcart: {
+                        ...this.state.cart,
+                        [id]: this.state.cart[id] - 1
+                    }
+                })
+            }
         }
+    }
+
+    AddButton(id, price, combo) {
+        if(combo) {
+            if (!this.state.cart[id]) {
+                return (
+                    <button 
+                        className='AddButton'
+                        onClick={ () => this.addNewCombo(id, price, combo) }
+                        disabled={ this.props.disabled }
+                        style={ this.props.style }>ADD +</button>
+                );
+            }
+            else {
+                return (
+                    <div className='CounterButtonContainer'>
+                        <button 
+                            className='CounterButton'
+                            onClick={ () => this.minus(id, price, combo) }
+                            disabled={ this.props.disabled }
+                            style={ this.props.style }>-</button>
+                        { this.state.cart[id] }
+                        <button 
+                            className='CounterButton'
+                            onClick={ () => this.add(id, price, combo) }
+                            disabled={ this.props.disabled }
+                            style={ this.props.style }>+</button>
+                    </div>
+                );
+            }
+        }
+        else {
+            if (!this.state.showcart[id]) {
+                return (
+                    <button 
+                        className='AddButton'
+                        onClick={ () => this.addNewCombo(id, price, combo) }
+                        disabled={ this.props.disabled }
+                        style={ this.props.style }>ADD +</button>
+                );
+            }
+            else {
+                return (
+                    <div className='CounterButtonContainer'>
+                        <button 
+                            className='CounterButton'
+                            onClick={ () => this.minus(id, price, combo) }
+                            disabled={ this.props.disabled }
+                            style={ this.props.style }>-</button>
+                        { this.state.showcart[id] }
+                        <button 
+                            className='CounterButton'
+                            onClick={ () => this.add(id, price, combo) }
+                            disabled={ this.props.disabled }
+                            style={ this.props.style }>+</button>
+                    </div>
+                );
+            }
+        }
+        
     }
 
     getAllShows() {
+        this.props.showLoader();
         request({
             method: 'GET',
             url: api.GET_ALL_PROFSHOWS,
@@ -254,9 +333,12 @@ class DialogBoxContainer extends Component {
             )
         }
         if (this.props.isBuyTicketOpen) {
+            let combos = [];
             if (this.state.combosTickets.length === 0 && this.state.showsTickets.length === 0)
                 this.getAllShows();
-            let combos = this.state.combosTickets.map(combo => {
+            if (true)
+                    combos = <Loader style={{height: '20%'}} />
+            combos = this.state.combosTickets.map(combo => {
                 return (
                     <div className='TicketCard' key={ combo.id }>
                         <div className='ShowDetail'>
@@ -267,46 +349,49 @@ class DialogBoxContainer extends Component {
                                 { (this.props.bitsianId) ? ('₹ ' + combo.price) : (combo.allow_participants ? ('₹ ' + combo.price) : "Not available") }
                             </div>
                         </div>
-                        {this.AddButton(combo.id, combo.price)}
                     </div>
                 )
             });
-            // let shows = this.state.showsTickets.map(show => {
-            //     return (
-            //         <div className='TicketCard' key={ show.id }>
-            //             <div className='ShowDetail'>
-            //                 <div className="ShowName">
-            //                     { show.name }
-            //                 </div>
-            //                 <div className='ShowDescription'>
-            //                     { (this.props.bitsianId) ? ('₹ ' + show.price) : (show.allow_participants ? ('₹ ' + show.price) : "Not available") }
-            //                 </div>
-            //             </div>
-            //             <AddButton click={ () => this.changeShowsTicketCounter(show.id, show.price) } />
-            //         </div>
-            //     )
-            // });
+            let shows = this.state.showsTickets.map(show => {
+                return (
+                    <div className='TicketCard' key={ show.id }>
+                        <div className='ShowDetail'>
+                            <div className="ShowName">
+                                { show.name }
+                            </div>
+                            <div className='ShowDescription'>
+                                { (this.props.bitsianId) ? ('₹ ' + show.price) : (show.allow_participants ? ('₹ ' + show.price) : "Not available") }
+                            </div>
+                        </div>
+                        {this.AddButton(show.id, show.price, false)}
+                    </div>
+                )
+            });
             let button;
             if(this.props.isLoading) {
-                button = <Loader />
+                button = (
+                    <div className="TicketFooter">
+                        <Loader />
+                    </div>
+                )
             }
             else {
                 button = (
-                    <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.props.buyProfShow(this.state.cart) }>Buy</Button>
-                    )
+                    <div className='TicketFooter'>
+                        <div className='totalTicketPrice'>&#8377; { this.state.totalPrice }</div>
+                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.props.buyProfShow(this.state.cart, this.state.showcart) }>Buy</Button>
+                    </div>
+                )
             }
             dialogBox = (
                 <Aux>
                     <div className='CombosTickets'>
                         { combos }
                     </div>
-                    {/* <div className='ShowsTickets'>
+                    <div className='CombosTickets'>
                         { shows }
-                    </div> */}
-                    <div className='TicketFooter'>
-                        <div className='totalTicketPrice'>&#8377; { this.state.totalPrice }</div>
-                        {button}
                     </div>
+                    {button}
                 </Aux>
             )
         }

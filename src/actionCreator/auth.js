@@ -20,6 +20,7 @@ export const changeLoginStatus = (isLoggedIn, JWT, userName, userId, qrCode, ref
 
 export const googleLogin = id => (dispatch, getState) => {
     console.log(id);
+    dispatch(loader.showLoader());
     request({
       method: 'POST',
       url: api.LOGIN,
