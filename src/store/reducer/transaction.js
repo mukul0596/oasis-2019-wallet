@@ -32,11 +32,6 @@ const transactions = (state = initialState, action) => {
                 ...initialState,
                 isQRcodeOpen: true
             }
-        case transaction.OPEN_REFERRAL_CODE:
-            return {
-                ...initialState,
-                isReferralOpen: true
-            }
         case transaction.CLOSE_TRANSACTION:
             return {
                 ...initialState,

@@ -70,7 +70,6 @@ class Profile extends Component {
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
                     <i className="fa fa-sign-out LogOut" onClick={ () => window.location.reload() }></i>
-                    <i className="fa fa-share-alt LogOut" onClick={ this.props.openReferralCode }></i>
                 </Header>
                 <ProfileInfo 
                     userName={ this.props.userName } 
@@ -115,7 +114,6 @@ const mapDispatchToProp = dispatch => {
         openSendMoney: () => dispatch({ type: 'OPEN_SEND_MONEY' }),
         openAddMoney: () => dispatch({ type: 'OPEN_ADD_MONEY' }),
         openBuyTicket: () => dispatch({ type: 'OPEN_BUY_TICKET' }),
-        openReferralCode: () => dispatch({ type: 'OPEN_REFERRAL_CODE' }),
         updateUserTickets: (tickets) => dispatch({ type: 'UPDATE_TICKETS', tickets }),
         getUserTickets: (tickets) => dispatch({ type: 'GET_USER_TICKETS', payload: tickets }),
         updateBalanceAndTokens: (balance, tokens) => dispatch({ type: 'UPDATE_REALTIME_DATA', balance, tokens }),

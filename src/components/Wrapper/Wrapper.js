@@ -15,18 +15,18 @@ class Wrapper extends Component {
     render() {
         // --------------------FOR ERROR MESSAGES------------------------
         let error;
-        if (this.props.errorMessage) {
+        if (this.props.message) {
             error = (
                 <MessageBox>
-                    { this.props.errorMessage }
+                    { this.props.message }
                 </MessageBox>
             )
         }
 
         // ------------------------FOR BACKDROP---------------------------
         let backdrop;
-        if (this.props.isQRcodeOpen || this.props.isAddMoneyOpen || this.props.isSendMoneyOpen || this.props.isBuyTicketOpen) {
-            backdrop = <Backdrop click={ this.props.closeTransaction } />
+        if (this.props.isQRcodeOpen || this.props.isAddMoneyOpen || this.props.isSendMoneyOpen || this.props.isBuyTicketOpen || this.props.message) {
+            backdrop = <Backdrop click={ () =>  {(!this.props.message) ? this.props.closeTransaction() : this.props.closeMessage();} } />
         }
 
         // ------------------FOR DIALOG BOX CONTAINER---------------------
@@ -65,11 +65,11 @@ class Wrapper extends Component {
 const mapStateToProp = state => {
     return {
         loggedIn: state.auth.loggedIn,
-        errorMessage: state.auth.errorMessage,
         isQRcodeOpen: state.transaction.isQRcodeOpen,
         isAddMoneyOpen: state.transaction.isAddMoneyOpen,
         isSendMoneyOpen: state.transaction.isSendMoneyOpen,
-        isBuyTicketOpen: state.transaction.isBuyTicketOpen
+        isBuyTicketOpen: state.transaction.isBuyTicketOpen,
+        message: state.message.message
     };
 };
 
@@ -78,6 +78,10 @@ const mapDispatchToProp = dispatch => {
         closeTransaction: () => {
             document.getElementsByClassName('DialogBoxContainer')[0].style.animation = 'slideOut 0.5s ease 1 forwards'
             setTimeout(() => dispatch({ type: 'CLOSE_TRANSACTION' }), 500);
+        },
+        closeMessage: () => {
+            document.getElementsByClassName('MessageBox')[0].style.animation = 'slideOut 0.5s ease 1 forwards'
+            setTimeout(() => dispatch({ type: 'CLOSE_MESSAGE' }), 500);
         }
     };
 }

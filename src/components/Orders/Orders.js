@@ -24,7 +24,6 @@ class Orders extends Component {
         querySnapshot.forEach(doc => {
             realtimeOrders[doc._key.path.segments[6]] = doc.data();
         });
-        console.log("Yahah pe hai! ", realtimeOrders);
         this.props.updateRealtimeOrders(realtimeOrders);
     });
 
@@ -76,6 +75,10 @@ class Orders extends Component {
         });
     }
 
+    updateMessage(message) {
+        this.props.updateMessage(message);
+    }
+
     render() {
         let orders;
         let loader;
@@ -97,7 +100,7 @@ class Orders extends Component {
                             <div className='OrderProgress'>
                                 <div 
                                     className={(this.props.realtimeOrders[ord['order-id']].status === 4) ? null : 'OrderOTP'} 
-                                    onClick={(!this.props.realtimeOrders[ord['order-id']].otp_seen) ? ((this.props.realtimeOrders[ord['order-id']].status === 2 || this.props.realtimeOrders[ord['order-id']].status === 3)) ? (e) => this.makeOtpSeenHandler(e, ord['order-id'], ord.otp) : () => alert('Available when item is ready') : null}>
+                                    onClick={(!this.props.realtimeOrders[ord['order-id']].otp_seen) ? ((this.props.realtimeOrders[ord['order-id']].status === 2 || this.props.realtimeOrders[ord['order-id']].status === 3)) ? (e) => this.makeOtpSeenHandler(e, ord['order-id'], ord.otp) : () => this.updateMessage('Available when item is ready') : null}>
                                         {(this.props.realtimeOrders[ord['order-id']].status === 4) ? null : (!this.props.realtimeOrders[ord['order-id']].otp_seen) ? 'OTP' : ord.otp}
                                 </div>
                                 <div className={['OrderStatus', ('st' + this.props.realtimeOrders[ord['order-id']].status)].join(' ')}>
@@ -138,7 +141,8 @@ const mapDispatchToProp = dispatch => {
     return {
         ...action,
         updateOrders: (orders) => dispatch({ type: 'UPDATE_ORDERS', orders }),
-        updateRealtimeOrders: (realtimeOrders) => dispatch({ type: 'UPDATE_REALTIME_ORDERS', realtimeOrders })
+        updateRealtimeOrders: (realtimeOrders) => dispatch({ type: 'UPDATE_REALTIME_ORDERS', realtimeOrders }),
+        updateMessage: (message) => dispatch({ type: 'UPDATE_MESSAGE',  message })
     };
 }
 

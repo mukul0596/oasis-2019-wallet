@@ -46,6 +46,7 @@ class DialogBoxContainer extends Component {
                 try {
                     this.setState({ amountToBeAdded: null });
                     this.props.closeTransaction();
+                    this.props.updateMessage('Amount successfully added');
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -81,6 +82,7 @@ class DialogBoxContainer extends Component {
                 try {
                     this.setState({ userId: null, amountToBeSent: null });
                     this.props.closeTransaction();
+                    this.props.updateMessage('Amount successfully sent');
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -316,7 +318,8 @@ const mapDispatchToProp = dispatch => {
     const action = bindActionCreators(Object.assign({}, profShow), dispatch);
     return {
         ...action,
-        closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' })
+        closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' }),
+        updateMessage: (message) => dispatch({ type: 'UPDATE_MESSAGE',  message })
     };
 }
 

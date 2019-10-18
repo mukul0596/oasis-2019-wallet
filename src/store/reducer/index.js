@@ -7,6 +7,7 @@ import userTickets from './userTickets';
 import orders from './orders';
 import loader from './loader';
 import kindStore from './kindStore';
+import message from './message';
 
 import { combineReducers } from 'redux';
 
@@ -21,5 +22,6 @@ export default combineReducers({
     kindStore,
     userTickets,
     orders,
-    loader
+    loader,
+    message
 })
