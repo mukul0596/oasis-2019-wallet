@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../UI/Header/Header';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, ListItemIcon, ListSubheader } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import '../Page.css';

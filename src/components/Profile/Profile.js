@@ -79,8 +79,8 @@ class Profile extends Component {
                     walletTokens={ this.props.userTokens } 
                     qrCode={ this.props.qrCode }
                     openQRcodeHandler={ this.props.openQRcode } />
-                <div className='TransactionButtons'>
-                    <Button click={ this.props.openAddMoney }>Add Money</Button>
+                <div className='TransactionButtons' style={ (this.props.bitsianId !== "") ? null : {justifyContent: 'center'} }>
+                    { (this.props.bitsianId !== "") ? <Button click={ this.props.openAddMoney }>Add Money</Button> : null }
                     <Button click={ this.props.openSendMoney }>Send Money</Button>
                 </div>
                 {ticket}

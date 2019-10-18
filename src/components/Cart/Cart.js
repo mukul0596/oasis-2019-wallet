@@ -57,7 +57,7 @@ class Cart extends Component {
     }
 
     order(cart, totalPrice) {
-        if(Object.keys(cart).length != 0) {
+        if(Object.keys(cart).length !== 0) {
             return  (
                 <List style={{background: '#31365E', padding: '10px', borderRadius: '2px'}}>
                     <ListItem>            

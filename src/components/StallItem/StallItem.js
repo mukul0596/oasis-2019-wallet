@@ -73,7 +73,7 @@ class StallItem extends Component {
         let items, k = 0, des = [], loader, back;
         let desc = [];
         console.log((!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) || this.props.isLoading)
-        if(this.props.isLoading && Object.keys(this.props.menu).length == 0) {
+        if(this.props.isLoading && Object.keys(this.props.menu).length === 0) {
             loader = <Loader style={{height: '80%'}} />;
             back = [];
         }
@@ -86,7 +86,7 @@ class StallItem extends Component {
         else {
             let availableItems = this.props.menu.filter(({ is_available }) => is_available);
             availableItems.map((item) => {
-                if(des.indexOf(item.description) == -1){
+                if(des.indexOf(item.description) === -1){
                     des.push(item.description)
                     desc[k] = [];
                     desc[k++].push(item)
@@ -94,10 +94,10 @@ class StallItem extends Component {
                 else {
                     desc[des.indexOf(item.description)].push(item)
                 }
+                return '';
             })
 
             items = Object.keys(desc).map((key) => {
-                {console.log(desc[key])}
                 return (
                     <List key={des[key]} style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} subheader={
                         <ListSubheader disableSticky={true} style={{fontSize: '24px', color: '#ffffff'}} id="header">
@@ -106,7 +106,6 @@ class StallItem extends Component {
                     }>
                      {
                         desc[key].map((item) => {
-                            {console.log(item)}
                             return (
                                 <ListItem>
                                     <ListItemIcon>
