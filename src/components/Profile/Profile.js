@@ -55,6 +55,17 @@ class Profile extends Component {
             }
         });
     }
+
+    signOutUser() {
+        document.cookie = encodeURIComponent('_oalettknwasis19__') + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = encodeURIComponent('_oalettknwasis19__name')+ '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = encodeURIComponent('_oalettknwasis19__user_id') + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = encodeURIComponent('_oalettknwasis19__qr_code') + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = encodeURIComponent('_oalettknwasis19__referral_code') + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = encodeURIComponent('_oalettknwasis19__bitsian_id') + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.reload();
+    }
+
     render() {
         let ticket;
         console.log(this.props)
@@ -69,7 +80,7 @@ class Profile extends Component {
         return (
             <div className='Profile Page'>
                 <Header heading='Profile' subHeading='Order food using wallet'>
-                    <i className="fa fa-sign-out LogOut" onClick={ () => window.location.reload() }></i>
+                    <i className="fa fa-sign-out LogOut" onClick={ this.signOutUser }></i>
                 </Header>
                 <ProfileInfo 
                     userName={ this.props.userName } 
