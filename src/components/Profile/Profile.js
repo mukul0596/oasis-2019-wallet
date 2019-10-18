@@ -98,7 +98,6 @@ const mapStateToProp = state => {
         qrCode: state.auth.qrCode,
         referralCode: state.auth.referralCode,
         bitsianId: state.auth.bitsianId,
-        // userTickets: state.auth.userTickets,
         userTickets: state.userTickets.userTickets,
         userBalance: state.auth.userBalance,
         userTokens: state.auth.userTokens,
@@ -114,7 +113,6 @@ const mapDispatchToProp = dispatch => {
         openSendMoney: () => dispatch({ type: 'OPEN_SEND_MONEY' }),
         openAddMoney: () => dispatch({ type: 'OPEN_ADD_MONEY' }),
         openBuyTicket: () => dispatch({ type: 'OPEN_BUY_TICKET' }),
-        updateUserTickets: (tickets) => dispatch({ type: 'UPDATE_TICKETS', tickets }),
         getUserTickets: (tickets) => dispatch({ type: 'GET_USER_TICKETS', payload: tickets }),
         updateBalanceAndTokens: (balance, tokens) => dispatch({ type: 'UPDATE_REALTIME_DATA', balance, tokens }),
     };

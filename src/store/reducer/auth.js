@@ -35,12 +35,6 @@ const logins = (state = initialState, action) => {
             userTokens: action.tokens
         }
     }
-    if ( type === login.UPDATE_TICKETS ) {
-        return {
-            ...state,
-            userTickets: action.tickets
-        }
-    }
     return {
         ...state
     };
