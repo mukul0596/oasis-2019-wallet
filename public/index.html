@@ -34,7 +34,8 @@
     <script>
       function x() {
         window.isOauthScriptReady = true;
-        window.init();
+        if (window.init)
+          window.init();
       }
     </script>
     <script src="https://apis.google.com/js/platform.js" onload="x()" async defer></script>
