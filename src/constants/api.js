@@ -2,7 +2,7 @@
 
 //Routes
 const proxyurl = "https://cors-anywhere.herokuapp.com/"
-export const API_BASE = proxyurl + "https://wallet.bits-oasis.org"
+export const API_BASE = proxyurl + "https://www.bits-oasis.org"
 // export const API_BASE = proxyurl + "http://test.bits-apogee.org/2019"
 // export const API_BASE = proxyurl + "https://bits-apogee.org/2019"
 export const API_ROOT = `${API_BASE}/wallet`

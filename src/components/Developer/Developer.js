@@ -13,7 +13,7 @@ class More extends Component {
                     <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('More')}/>
                 </Header>
                 <List>
-                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
+                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px', justifyContent: 'space-evenly'}} >
                         <ListItemAvatar>
                             <Avatar className="contactImg" calt="Remy Sharp" style={{background: '#ffffff', width: '60px', height: '60px', marginRight: '10px'}} src={require('../../assets/images/Developers/chirag.jpg')} />
                         </ListItemAvatar>
@@ -27,7 +27,7 @@ class More extends Component {
                                 }} 
                                 className="fa fa-github-square" style={{fontSize: '20px'}} /></span>} />
                     </ListItem>
-                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
+                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px', justifyContent: 'space-evenly'}} >
                         <ListItemAvatar>
                             <Avatar className="contactImg" calt="Remy Sharp" style={{background: '#ffffff', width: '60px', height: '60px', marginRight: '10px'}} src={require('../../assets/images/Developers/mukul.jpg')} />
                         </ListItemAvatar>
@@ -42,7 +42,7 @@ class More extends Component {
                                 }} 
                                     className="fa fa-github-square" style={{fontSize: '20px'}} /></span>} />
                     </ListItem>
-                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
+                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px', justifyContent: 'space-evenly'}} >
                         <ListItemAvatar>
                             <Avatar className="contactImg" calt="Remy Sharp" style={{background: '#ffffff', width: '60px', height: '60px', marginRight: '10px'}} src={require('../../assets/images/Developers/pradyumna.jpg')} />
                         </ListItemAvatar>
@@ -56,7 +56,7 @@ class More extends Component {
                                 }} 
                                 className="fa fa-github-square" style={{fontSize: '20px'}} /></span>} />
                     </ListItem>
-                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
+                    <ListItem alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px', justifyContent: 'space-evenly'}} >
                         <ListItemAvatar>
                             <Avatar className="contactImg" calt="Remy Sharp" style={{background: '#ffffff', width: '60px', height: '60px', marginRight: '10px'}} src={require('../../assets/images/Developers/dushyant.jpg')} />
                         </ListItemAvatar>

@@ -2,6 +2,7 @@ import request from 'request';
 import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as cart from '../store/actions/cart';
+import * as loader from './loader';
 
 export const increaseQty = (stallId, itemId) => ({
     type: cart.INC_QTY,
@@ -60,6 +61,7 @@ export const placeOrder = () => (dispatch, getState) => {
         }
     }
     console.log(order);
+    dispatch(loader.showLoader());
     request({
         method: 'POST',
         url: api.PLACE_ORDER,

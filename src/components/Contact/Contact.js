@@ -19,7 +19,7 @@ class More extends Component {
         
         let contacts = contactArr.map((contact, ind) => {
             return (
-                <ListItem key={ind} alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px'}} >
+                <ListItem key={ind} alignItems="flex-start" className='contact' style={{background: '#31365E', padding: '10px', marginBottom: '10px', borderRadius: '12px', justifyContent: 'space-evenly'}} >
                     <ListItemAvatar>
                         <Avatar className="contactImg" calt="Remy Sharp" style={{background: '#ffffff', width: '60px', height: '60px', marginRight: '10px'}} src={imgArr[ind]} />
                     </ListItemAvatar>

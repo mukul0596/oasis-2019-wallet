@@ -1,7 +1,8 @@
 import * as order from '../actions/orders';
 
 const initailState = {
-    orders: null
+    orders: null,
+    realtimeOrders: null
 };
 
 const orders = (state = initailState, action) => {
@@ -10,6 +11,12 @@ const orders = (state = initailState, action) => {
         return{
             ...state,
             orders: action.orders
+        }
+    }
+    if (type === order.UPDATE_REALTIME_ORDERS) {
+        return {
+            ...state,
+            realtimeOrders: action.realtimeOrders
         }
     }
     if(type === order.CLEAR_ORDER) {

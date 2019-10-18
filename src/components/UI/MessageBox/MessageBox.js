@@ -7,7 +7,7 @@ class MessageBox extends Component {
     render() {
         return (
             <div className="MessageBox">
-                <i className="fa fa-close CloseButton" onClick={ this.props.closeError }></i>
+                <i className="fa fa-close CloseButton" onClick={ this.props.closeMessage }></i>
                 { this.props.children }
             </div>
         )
@@ -16,10 +16,10 @@ class MessageBox extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        closeError: () => {
+        closeMessage: () => {
             document.getElementsByClassName('MessageBox')[0].style.animation = 'slideOut 0.5s ease 1 forwards'
             setTimeout(() => {
-                dispatch({ type: 'CLOSE_ERROR' });
+                dispatch({ type: 'CLOSE_MESSAGE' });
             }, 500);
         }
     };

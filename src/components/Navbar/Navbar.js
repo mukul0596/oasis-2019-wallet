@@ -13,7 +13,7 @@ import './Navbar.css';
 class Navbar extends Component {
     render() {
         console.log(this.props)
-        if(this.props.activeTab == 'MenuItem' && this.props.totalItems > 0){
+        if(this.props.activeTab === 'MenuItem' && this.props.totalItems > 0){
             let items = this.props.totalItems > 1 ? `${this.props.totalItems} Items` : `${this.props.totalItems} Item`; 
             
             return (
@@ -32,7 +32,7 @@ class Navbar extends Component {
                 </div>
             );
         }
-        else if(this.props.activeTab == 'Contact' || this.props.activeTab == 'Developer' || this.props.activeTab == 'KindStore' || (this.props.activeTab == 'MenuItem' && this.props.totalItems == 0)) {
+        else if(this.props.activeTab == 'Contact' || this.props.activeTab == 'Developers' || this.props.activeTab == 'KindStore' || (this.props.activeTab == 'MenuItem' && this.props.totalItems == 0)) {
             return (
                 <div></div>
             )
@@ -41,10 +41,10 @@ class Navbar extends Component {
             return (
                 <div className='Navbar'>
                     <div className={ (this.props.activeTab === 'Profile') ? 'active' : null } onClick={() => this.props.changeActiveTab('Profile') }><ProfileIcon /></div>
-                    <div className={ (this.props.activeTab === 'Stalls') ? 'active' : null } onClick={() => this.props.changeActiveTab('Stalls') }><StallsIcon /></div>
+                    <div className={ (this.props.activeTab === 'Stalls' || this.props.activeTab === 'MenuItem') ? 'active' : null } onClick={() => this.props.changeActiveTab('Stalls') }><StallsIcon /></div>
                     <div className={ (this.props.activeTab === 'Cart') ? 'active' : null } onClick={() => this.props.changeActiveTab('Cart') }><CartIcon /></div>
                     <div className={ (this.props.activeTab === 'Orders') ? 'active' : null } onClick={() => this.props.changeActiveTab('Orders') }><OrdersIcon /></div>
-                    <div className={ (this.props.activeTab === 'More') ? 'active' : null } onClick={() => this.props.changeActiveTab('More') }><MoreIcon /></div>
+                    <div className={ (this.props.activeTab === 'More' || this.props.activeTab === 'KindStore' || this.props.activeTab === 'Contact' || this.props.activeTab === 'Developers') ? 'active' : null } onClick={() => this.props.changeActiveTab('More') }><MoreIcon /></div>
                 </div>
             )
         }

@@ -10,19 +10,12 @@ const initialState = {
     bitsianId: null,
     userBalance: null,
     userTokens: null,
-    userTickets: null,
-    errorMessage: null
+    userTickets: null
 }
 
 const logins = (state = initialState, action) => {
-  const { type } = action;
-  
-    if ( type === login.CLOSE_ERROR ) {
-        return {
-            ...state,
-            errorMessage: null
-        }; 
-    }
+    const { type } = action;
+
     if( type === login.SET_LOGIN) {
         return {
             ...state,
@@ -49,8 +42,7 @@ const logins = (state = initialState, action) => {
         }
     }
     return {
-        ...state,
-        errorMessage: null
+        ...state
     };
 }
 export default logins;

@@ -7,6 +7,7 @@ import Button from '../UI/Button/Button';
 import { bindActionCreators } from 'redux'
 import './Login.css';
 import * as auth from '../../actionCreator/auth';
+import Loader from '../Loader/loader';
 
 class Login extends Component{
     constructor(props) {
@@ -67,11 +68,13 @@ class Login extends Component{
     
 
     render() {
-        return (
-            <div className="Login">
-                <img src={require('../../assets/images/logo.png')} className='logo' alt="OASIS-logo" />
-                <h1>OASIS'19</h1>
-                <h2>Web Wallet</h2>
+        let button;
+        console.log(this.props)
+        if(this.props.isLoading) {
+            button = <Loader style={{height: '20%'}} />
+        }
+        else {
+            button = (
                 <form name="login" id="login-form">
                     <div style={{display: 'flex'}}>
                         <i className="fa fa-user" style={{display: 'flex', alignItems: 'center', fontSize: '1.25rem', color: '#ffffff'}}></i>
@@ -98,6 +101,14 @@ class Login extends Component{
                         }>
                     Login</Button>
                 </form>
+            )
+        }
+        return (
+            <div className="Login">
+                <img src={require('../../assets/images/logo.png')} className='logo' alt="OASIS-logo" />
+                <h1>OASIS'19</h1>
+                <h2>Web Wallet</h2>
+                {button}
                 <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
                     <hr size='1px' width='30%' color='#ffffff' />
                     <div style={{fontSize: '1.25rem', color: '#ffffff', width: '10%', boxSizing: 'border-box', textAlign: 'center'}}> OR </div>
@@ -118,7 +129,8 @@ const mapStateToProps = state => ({
     auth: {
         JWT: state.JWt,
         loggedIn: state.loggedIn
-    }
+    },
+    isLoading: state.loader.isLoading
 })
 
 

@@ -3,6 +3,7 @@ import handleResponse from '../utils/handleResponse';
 import * as api from '../constants/api';
 import * as auth from '../store/actions/auth';
 import * as cart from '../store/actions/cart';
+import * as loader from './loader';
 
 export const changeLoginStatus = (isLoggedIn, JWT, userName, userId, qrCode, referralCode, bitsianId) => (dispatch, getState) => {
 
@@ -44,11 +45,7 @@ export const googleLogin = id => (dispatch, getState) => {
 
 
 export const login = (username, password) => (dispatch, getState) =>{
-    console.log(username, password)
-     // JUST FOR TESTING
-     if ( username === "mukul" && password === "12345") {
-        dispatch(changeLoginStatus(true, null))
-    }
+    dispatch(loader.showLoader());
     request({
         method: 'POST',
         url: api.LOGIN,

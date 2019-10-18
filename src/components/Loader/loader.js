@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import './loader.css';
 

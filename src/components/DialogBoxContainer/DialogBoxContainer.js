@@ -10,8 +10,9 @@ import Aux from '../hoc/Aux/Aux';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import * as profShow from '../../actionCreator/profShows';
-
+import Loader from '../Loader/loader'
 import './DialogBoxContainer.css';
+import * as load from '../../actionCreator/loader';
 
 class DialogBoxContainer extends Component {
     state = {
@@ -46,6 +47,7 @@ class DialogBoxContainer extends Component {
                 try {
                     this.setState({ amountToBeAdded: null });
                     this.props.closeTransaction();
+                    this.props.updateMessage('Amount successfully added');
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -54,6 +56,7 @@ class DialogBoxContainer extends Component {
     }
 
     sendMoneyHandler(e) {
+        this.props.showLoader();
         e.preventDefault();
         if (!this.state.amountToBeSent) {
             alert('Please enter the amount to be sent!');
@@ -81,6 +84,7 @@ class DialogBoxContainer extends Component {
                 try {
                     this.setState({ userId: null, amountToBeSent: null });
                     this.props.closeTransaction();
+                    this.props.updateMessage('Amount successfully sent');
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -112,7 +116,7 @@ class DialogBoxContainer extends Component {
 
     minus(id, price) {
         console.log(this.state, id, price)
-        if(this.state.cart[id] == 1) {
+        if(this.state.cart[id] === 1) {
             let newState = this.state;
             delete newState.cart[id];
             this.setState({
@@ -189,11 +193,20 @@ class DialogBoxContainer extends Component {
         if (this.props.isQRcodeOpen) {
             dialogBox = (
                 <div style={{background: '#ffffff'}}>
-                    <QRCode value={ this.props.qrCode } bgColor="#ffffff" fgColor="#000000" size={225} />
+                    <QRCode value={ this.props.qrCode } bgColor="#ffffff" fgColor="#31365E" size={225} />
                 </div>
             )
         }
         if (this.props.isAddMoneyOpen) {
+            let button;
+            if(this.props.isLoading) {
+                button = <Loader />
+            }
+            else {
+                button = (
+                    <Button  click={ (e) => this.addMoneyHandler(e) }>Add Money (SWD)</Button>
+                )
+            }
             dialogBox = (
                 <Aux>
                     <div className='DialogBoxHeading'>Add Money (Stalls)</div>
@@ -204,20 +217,21 @@ class DialogBoxContainer extends Component {
                             style={{ fontSize: '1.5rem' }} 
                             value={this.state.amountToBeAdded} 
                             onChange={e => this.setState({ amountToBeAdded: e.target.value })} />
-                        <Button  click={ (e) => this.addMoneyHandler(e) }>Add Money (SWD)</Button>
+                        {button}
                     </form>
-                    <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                        <hr size='1px' width='35%' color='#FFFFFF' />
-                        <div style={{fontSize: '1.25rem', color: '#FFFFFF', width: '30%', boxSizing: 'border-box', textAlign: 'center'}}> OR </div>
-                        <hr size='1px' width='35%' color='#FFFFFF' />
-                    </div>
-                    <Button style={{background: '#ffffff', color: '#333333', padding: '12px'}}>
-                        <img src={require('../../assets/images/paytm.svg')} alt='paytm-logo' style={{width: '45px', height: '18px', marginRight: '12px'}} />Add via Paytm
-                    </Button>
                 </Aux>
             )
         }
         if (this.props.isSendMoneyOpen) {
+            let button;
+            if(this.props.isLoading) {
+                button = <Loader />
+            }
+            else {
+                button = (
+                    <Button click={ (e) => this.sendMoneyHandler(e) }>Send Money</Button>
+                )
+            }
             dialogBox = (
                 <Aux>
                     <div className='DialogBoxHeading'>Send Money</div>
@@ -234,7 +248,7 @@ class DialogBoxContainer extends Component {
                             style={{ fontSize: '1.5rem' }}
                             value={this.state.userId}  
                             onChange={e => this.setState({ userId: e.target.value })} />
-                        <Button click={ (e) => this.sendMoneyHandler(e) }>Send Money</Button>
+                            {button}
                     </form>
                 </Aux>
             )
@@ -272,6 +286,15 @@ class DialogBoxContainer extends Component {
             //         </div>
             //     )
             // });
+            let button;
+            if(this.props.isLoading) {
+                button = <Loader />
+            }
+            else {
+                button = (
+                    <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.props.buyProfShow(this.state.cart) }>Buy</Button>
+                    )
+            }
             dialogBox = (
                 <Aux>
                     <div className='CombosTickets'>
@@ -282,12 +305,22 @@ class DialogBoxContainer extends Component {
                     </div> */}
                     <div className='TicketFooter'>
                         <div className='totalTicketPrice'>&#8377; { this.state.totalPrice }</div>
-                        <Button style={{ margin: '0', padding: '8px 16px', fontSize: '0.95rem', marginTop: '4px' }} click={ () => this.props.buyProfShow(this.state.cart) }>Buy</Button>
+                        {button}
                     </div>
                 </Aux>
             )
         }
 
+        if (this.props.isReferralOpen) {
+            dialogBox = (
+                <Aux>
+                    <div className='DialogBoxHeading'>Add Money (Stalls)</div>
+                    <div className='ShowName'>{ this.props.referralCode }</div>
+                </Aux>
+            )
+        }
+
+        console.log("Idhar",this.props);
         return (
             <div className='DialogBoxContainer'>
                 { dialogBox }
@@ -303,16 +336,22 @@ const mapStateToProp = state => {
         isAddMoneyOpen: state.transaction.isAddMoneyOpen,
         isSendMoneyOpen: state.transaction.isSendMoneyOpen,
         isBuyTicketOpen: state.transaction.isBuyTicketOpen,
+        isReferralOpen: state.transaction.isReferralOpen,
         qrCode: state.auth.qrCode,
-        bitsianId: state.auth.bitsianId
+        referralCode: state.auth.referralCode,
+        bitsianId: state.auth.bitsianId,
+        isLoading: state.loader.isLoading
     };
 };
 
 const mapDispatchToProp = dispatch => {
     const action = bindActionCreators(Object.assign({}, profShow), dispatch);
+    const actions = bindActionCreators(Object.assign({}, load), dispatch);
     return {
         ...action,
-        closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' })
+        ...actions,
+        closeTransaction: () => dispatch({ type: 'CLOSE_TRANSACTION' }),
+        updateMessage: (message) => dispatch({ type: 'UPDATE_MESSAGE',  message })
     };
 }
 

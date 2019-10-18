@@ -9,6 +9,7 @@ import Button from '../UI/Button/Button';
 
 import '../Page.css';
 import './Cart.css';
+import Loader from '../Loader/loader';
 
 class Cart extends Component {
 
@@ -56,18 +57,27 @@ class Cart extends Component {
             return require('../../assets/images/nonveg.png')
     }
 
-    order(cart, totalPrice) {
-        if(Object.keys(cart).length != 0) {
+    order(cart, totalPrice, isLoading) {
+        let button;
+        if(isLoading) {
+            button = <Loader />
+        }
+        else {
+            button = (
+                <Button click={(e) => {
+                    e.preventDefault();
+                    this.props.placeOrder();
+                }}>Order</Button>
+            )
+        }
+        if(Object.keys(cart).length !== 0) {
             return  (
                 <List style={{background: '#31365E', padding: '10px', borderRadius: '2px'}}>
                     <ListItem>            
                         <ListItemText className="order" style={{color: '#ffffff'}} primary={'₹ ' + totalPrice} />
                         <ListItemSecondaryAction>
                             <div edge="end">
-                                <Button click={(e) => {
-                                    e.preventDefault();
-                                    this.props.placeOrder();
-                                }}>Order</Button>
+                                {button}
                             </div>
                         </ListItemSecondaryAction>
                     </ListItem>  
@@ -77,6 +87,7 @@ class Cart extends Component {
     }
 
     render() {
+        
         console.log(this.props)
         let items = Object.keys(this.props.cart).map((key) => {
             console.log(this.props.cart[key].items)
@@ -120,7 +131,7 @@ class Cart extends Component {
                 <Header heading='Cart' subHeading='Know your current orders'>
                 </Header>
                 {items}
-                {this.order(this.props.cart, this.props.totalPrice)}
+                {this.order(this.props.cart, this.props.totalPrice, this.props.isLoading)}
             </div>
         );
     }
@@ -129,7 +140,8 @@ class Cart extends Component {
 const mapStateToProps = state => ({
     cart: state.carts.cart,
     totalItems: state.carts.totalItems,
-    totalPrice: state.carts.totalPrice
+    totalPrice: state.carts.totalPrice,
+    isLoading: state.loader.isLoading
 })
 
 const mapDispatchToProps = dispatch => {
