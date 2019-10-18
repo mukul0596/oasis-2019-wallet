@@ -27,9 +27,10 @@ class DialogBoxContainer extends Component {
     addMoneyHandler(e) {
         e.preventDefault();
         if (!this.state.amountToBeAdded) {
-            alert('Please enter the amount to be added!');
+            this.props.updateMessage('Please enter the amount to be added!');
             return;
         }
+        this.props.closeTransaction();
         request({
             method: 'POST',
             url: api.ADD_MONEY,
@@ -46,7 +47,6 @@ class DialogBoxContainer extends Component {
             handleResponse(error, response, body, () => {
                 try {
                     this.setState({ amountToBeAdded: null });
-                    this.props.closeTransaction();
                     this.props.updateMessage('Amount successfully added');
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -59,13 +59,14 @@ class DialogBoxContainer extends Component {
         this.props.showLoader();
         e.preventDefault();
         if (!this.state.amountToBeSent) {
-            alert('Please enter the amount to be sent!');
+            this.props.updateMessage('Please enter the amount to be sent!');
             return;
         }
         if (!this.state.userId) {
-            alert('Please enter the user id!');
+            this.props.updateMessage('Please enter the user id!');
             return;
         }
+        this.props.closeTransaction();
         request({
             method: 'POST',
             url: api.TRANSFER_MONEY,
@@ -83,7 +84,6 @@ class DialogBoxContainer extends Component {
             handleResponse(error, response, body, () => {
                 try {
                     this.setState({ userId: null, amountToBeSent: null });
-                    this.props.closeTransaction();
                     this.props.updateMessage('Amount successfully sent');
                 } catch (e) {
                     throw new Error(e.message || "");

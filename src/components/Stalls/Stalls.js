@@ -47,7 +47,6 @@ class Stalls extends Component {
             return(
                 <div className='Stalls Page'>
                     <Header heading='Stalls' subHeading='Order food using wallet'>
-                        <i className="fa fa-search SearchIcon"></i>
                     </Header>
                     {loader}
                     <List>
