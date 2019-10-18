@@ -32,7 +32,7 @@ class Navbar extends Component {
                 </div>
             );
         }
-        else if(this.props.activeTab == 'Contact' || this.props.activeTab == 'Developer' || this.props.activeTab == 'KindStore') {
+        else if(this.props.activeTab == 'Contact' || this.props.activeTab == 'Developer' || this.props.activeTab == 'KindStore' || (this.props.activeTab == 'MenuItem' && this.props.totalItems == 0)) {
             return (
                 <div></div>
             )
