@@ -27,7 +27,7 @@ class Orders extends Component {
         console.log("Yahah pe hai! ", realtimeOrders);
         this.props.updateRealtimeOrders(realtimeOrders);
     });
-    
+
     request({
             method: 'GET',
             url: api.GET_ORDERS,
@@ -77,12 +77,13 @@ class Orders extends Component {
     }
 
     render() {
-        console.log(this.props.orders)
-            let orders;
-            let loader;
-            if(this.props.isLoading && !this.props.orders) loader = <Loader style={{height: '80%'}} />
-            else loader = [];
-        if (this.props.orders) {
+        let orders;
+        let loader;
+        if(this.props.isLoading && !this.props.orders)
+            loader = <Loader style={{height: '80%'}} />
+        else
+            loader = [];
+        if (this.props.orders && this.props.realtimeOrders) {
             orders = this.props.orders.map(order => {
                 return order.orders.map(ord => {
                     return (
