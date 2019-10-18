@@ -98,9 +98,9 @@ class Login extends Component{
                         </div>
                         <Button click={(e) => {
                                     e.preventDefault();
-                                    this.props.login(this.state.username, this.state.password)
+                                    this.props.login(this.state.username, this.state.password);
                                 }
-                            }>
+                            } disabled={ (!this.state.username || !this.state.password) }>
                         Login</Button>
                     </form>
                     <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
