@@ -37,7 +37,6 @@ class StallItem extends Component {
     }
 
     addNewItem(item) {
-        console.log(item)
         this.props.addNewItemToCart(this.props.activeVendor, item.vendor_id, item.name, item.id, item.price, item.is_veg, item.current_discount)
     }
 
@@ -57,7 +56,7 @@ class StallItem extends Component {
     }
 
     discount(item) {
-        if(item.current_discount)
+        if(!item.current_discount)
             return <span>₹ {item.price}</span>
         else {
             return (
@@ -72,7 +71,6 @@ class StallItem extends Component {
     render() {
         let items, k = 0, des = [], loader, back;
         let desc = [];
-        console.log((!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) || this.props.isLoading)
         if(this.props.isLoading && Object.keys(this.props.menu).length === 0) {
             loader = <Loader style={{height: '80%'}} />;
             back = [];
@@ -81,7 +79,6 @@ class StallItem extends Component {
             loader = [];
             back = <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('Stalls')}/>;
         }
-        console.log(this.props)
         if ((!this.props.menu || !this.props.activeVendor || !this.props.activeVendorId || !this.props.cart) || this.props.isLoading) items = [];
         else {
             let availableItems = this.props.menu.filter(({ is_available }) => is_available);

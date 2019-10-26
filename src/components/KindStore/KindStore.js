@@ -26,7 +26,6 @@ class More extends Component {
             loader = [];
             back = <i className="fa fa-arrow-left" onClick={() => this.props.changeActiveTab('More')}/>;
         }
-        console.log(this.props)
         if(this.props.items) {
             items = this.props.items.items_list.map((item, ind) => {
                 return (

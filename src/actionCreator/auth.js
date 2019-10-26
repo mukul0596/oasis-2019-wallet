@@ -19,7 +19,6 @@ export const changeLoginStatus = (isLoggedIn, JWT, userName, userId, qrCode, ref
 }
 
 export const googleLogin = id => (dispatch, getState) => {
-    console.log(id);
     dispatch(loader.showLoader());
     request({
       method: 'POST',
@@ -37,12 +36,6 @@ export const googleLogin = id => (dispatch, getState) => {
         try {
           body = JSON.parse(body)
           dispatch(changeLoginStatus(true, body.JWT, body.name, body.user_id, body.qr_code, body.referral_code, body.bitsian_id))
-          document.cookie = encodeURIComponent('_oalettknwasis19__') + '=' + encodeURIComponent(body.JWT);
-          document.cookie = encodeURIComponent('_oalettknwasis19__name')+ '=' + encodeURIComponent(body.name);
-          document.cookie = encodeURIComponent('_oalettknwasis19__user_id') + '=' + encodeURIComponent(body.user_id);
-          document.cookie = encodeURIComponent('_oalettknwasis19__qr_code') + '=' + encodeURIComponent(body.qr_code);
-          document.cookie = encodeURIComponent('_oalettknwasis19__referral_code') + '=' + encodeURIComponent(body.referral_code);
-          document.cookie = encodeURIComponent('_oalettknwasis19__bitsian_id') + '=' + encodeURIComponent(body.bitsian_id);
         } catch (e) {
           throw new Error(e.message || "");
         }
@@ -68,14 +61,7 @@ export const login = (username, password) => (dispatch, getState) =>{
         handleResponse(error, response, body, () => {
             try {
                 body = JSON.parse(body);
-                console.log(body)
-                dispatch(changeLoginStatus(true, body.JWT, body.name, body.user_id, body.qr_code, body.referral_code, body.bitsian_id))
-                document.cookie = encodeURIComponent('_oalettknwasis19__') + '=' + encodeURIComponent(body.JWT);
-                document.cookie = encodeURIComponent('_oalettknwasis19__name')+ '=' + encodeURIComponent(body.name);
-                document.cookie = encodeURIComponent('_oalettknwasis19__user_id') + '=' + encodeURIComponent(body.user_id);
-                document.cookie = encodeURIComponent('_oalettknwasis19__qr_code') + '=' + encodeURIComponent(body.qr_code);
-                document.cookie = encodeURIComponent('_oalettknwasis19__referral_code') + '=' + encodeURIComponent(body.referral_code);
-                document.cookie = encodeURIComponent('_oalettknwasis19__bitsian_id') + '=' + encodeURIComponent(body.bitsian_id);
+                dispatch(changeLoginStatus(true, body.JWT, body.name, body.user_id, body.qr_code, body.referral_code, body.bitsian_id));
             } catch (e) {
                 throw new Error(e.message || "");
             }

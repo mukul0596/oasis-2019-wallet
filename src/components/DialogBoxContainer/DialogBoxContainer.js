@@ -110,8 +110,6 @@ class DialogBoxContainer extends Component {
                 [id]: 1
             }})
         }
-        console.log(this.state, id, price)
-        
     }
 
     add(id, price, combo) {
@@ -135,12 +133,9 @@ class DialogBoxContainer extends Component {
                 }
             })
         }
-        console.log(this.state, id, price)
-        
     }
 
     minus(id, price, combo) {
-        console.log(this.state, id, price)
         if(combo){
             if(this.state.cart[id] === 1) {
                 let newState = this.state;
@@ -257,8 +252,7 @@ class DialogBoxContainer extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
-                    console.log(body)
+                    body = JSON.parse(body);
                     this.setState({ combosTickets: body.combos, showsTickets: body.shows });
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -343,7 +337,7 @@ class DialogBoxContainer extends Component {
                     <div className='TicketCard' key={ combo.id }>
                         <div className='ShowDetail'>
                             <div className="ShowName">
-                                { combo.shows[0].name + ' + ' + combo.shows[1].name }
+                                { (combo.shows.length === 2) ? (combo.shows[0].name + ' + ' + combo.shows[1].name) : combo.shows[0].name }
                             </div>
                             <div className='ShowDescription'>
                                 { (this.props.bitsianId) ? ('₹ ' + combo.price) : (combo.allow_participants ? ('₹ ' + combo.price) : "Not available") }
@@ -405,7 +399,6 @@ class DialogBoxContainer extends Component {
             )
         }
 
-        console.log("Idhar",this.props);
         return (
             <div className='DialogBoxContainer'>
                 { dialogBox }

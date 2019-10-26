@@ -47,21 +47,16 @@ export const addToCart = (stallName, stallId, itemName, itemId, price) => (dispa
 
 export const placeOrder = () => (dispatch, getState) => {
     const cart = getState().carts.cart;
-    console.log(cart)
-    console.log(getState())
     const keys = Object.keys(cart)
     let order = {};
     order['orderdict'] = {};
     for(let i = 0; i < keys.length; i++) {
         order['orderdict'][keys[i]] = {}
-        console.log(order);
         const newKeys = Object.keys(cart[keys[i]].items);
         for(let j = 0; j < newKeys.length; j++) {
-            console.log(order);    
             order['orderdict'][keys[i]][newKeys[j]] = cart[keys[i]].items[newKeys[j]].quantity;
         }
     }
-    console.log(order);
     dispatch(loader.showLoader());
     request({
         method: 'POST',
@@ -76,8 +71,7 @@ export const placeOrder = () => (dispatch, getState) => {
       }, (error, response, body) => {
         handleResponse(error, response, body, () => {
           try {
-            body = JSON.parse(body)
-            console.log(body);
+            body = JSON.parse(body);
             dispatch(message.updateMessage('Order placed successfully'))
             dispatch(clearCart())
           } catch (e) {

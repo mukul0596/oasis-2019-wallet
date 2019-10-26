@@ -32,8 +32,7 @@ class Profile extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
-                    console.log(body.shows)
+                    body = JSON.parse(body);
                     this.props.getUserTickets(body.shows);
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -45,13 +44,6 @@ class Profile extends Component {
             if (doc && doc.exists) {
                 const user = doc.data();
                 this.props.updateBalanceAndTokens(user.total_balance, user.tokens)
-            }
-        });
-
-        firestore.doc('tickets/' + this.props.userId).onSnapshot((doc) => {
-            if (doc && doc.exists) {
-                const tickets = doc.data();
-                console.log('tickets: ',tickets);
             }
         });
     }
@@ -68,7 +60,6 @@ class Profile extends Component {
 
     render() {
         let ticket;
-        console.log(this.props)
         if(this.props.isLoading && !this.props.userTickets) {
             ticket = <Loader style={{height: '30%'}} />
         }

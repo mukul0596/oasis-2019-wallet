@@ -20,8 +20,6 @@ export default combineReducers({
     userTickets, 
     loader,
     kindStore,
-    userTickets,
     orders,
-    loader,
     message
 })

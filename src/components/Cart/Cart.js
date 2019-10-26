@@ -38,7 +38,7 @@ class Cart extends Component {
     }
 
     discount(price, current_discount) {
-        if(current_discount)
+        if(!current_discount)
             return <span>₹ {price}</span>
         else {
             return (
@@ -59,7 +59,7 @@ class Cart extends Component {
 
     order(cart, totalPrice, isLoading) {
         let button;
-        if(isLoading) {
+        if(isLoading || !cart) {
             button = <Loader />
         }
         else {
@@ -70,7 +70,7 @@ class Cart extends Component {
                 }}>Order</Button>
             )
         }
-        if(Object.keys(cart).length !== 0) {
+        if(cart && Object.keys(cart).length !== 0) {
             return  (
                 <List style={{background: '#31365E', padding: '10px', borderRadius: '2px'}}>
                     <ListItem>            
@@ -87,44 +87,48 @@ class Cart extends Component {
     }
 
     render() {
-        
-        console.log(this.props)
-        let items = Object.keys(this.props.cart).map((key) => {
-            console.log(this.props.cart[key].items)
-            return (
-                <List key={key} style={{background: '#31365E', padding: '10px', borderRadius: '2px'}} subheader={
-                    <ListSubheader disableSticky={true} style={{fontSize: '24px', color: '#ffffff'}} id="header">
-                      {this.props.cart[key].stallName}
-                    </ListSubheader>
-                }>
-                    {
-                        Object.keys(this.props.cart[key].items).map((newKey) => {
-                            return(
-                                <ListItem>
-                                    <ListItemIcon>
-                                        <img src={this.isVeg(this.props.cart[key].items[newKey].isVeg)} alt="" style={{width: '24px'}} />
-                                    </ListItemIcon>
-                                    <ListItemText key={newKey} className="stallName" style={{color: '#ffffff'}} primary={this.props.cart[key].items[newKey].itemName} secondary={this.discount(this.props.cart[key].items[newKey].price, this.props.cart[key].items[newKey].discount)} />
-                                    <ListItemSecondaryAction>
-                                        <div edge="end">
-                                            {/* <RemoveCircle style={{color: '#ffffff'}} />
-                                            <div className="quantity">
-                                                {
-                                                    (this.props.cart[this.props.activeVendorId] && this.props.cart[this.props.activeVendorId].items[item.id]) ?
-                                                        this.props.cart[this.props.activeVendorId].items[item.id].quantity : 0
-                                                }
+        let items;
+        if(this.props.cart) {
+            items = Object.keys(this.props.cart).map((key) => {
+                return (
+                    <List key={key} style={{background: '#31365E', padding: '10px', borderRadius: '2px'}} subheader={
+                        <ListSubheader disableSticky={true} style={{fontSize: '24px', color: '#ffffff'}} id="header">
+                          {this.props.cart[key].stallName}
+                        </ListSubheader>
+                    }>
+                        {
+                            Object.keys(this.props.cart[key].items).map((newKey) => {
+                                return(
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <img src={this.isVeg(this.props.cart[key].items[newKey].isVeg)} alt="" style={{width: '24px'}} />
+                                        </ListItemIcon>
+                                        <ListItemText key={newKey} className="stallName" style={{color: '#ffffff'}} primary={this.props.cart[key].items[newKey].itemName} secondary={this.discount(this.props.cart[key].items[newKey].price, this.props.cart[key].items[newKey].discount)} />
+                                        <ListItemSecondaryAction>
+                                            <div edge="end">
+                                                {/* <RemoveCircle style={{color: '#ffffff'}} />
+                                                <div className="quantity">
+                                                    {
+                                                        (this.props.cart[this.props.activeVendorId] && this.props.cart[this.props.activeVendorId].items[item.id]) ?
+                                                            this.props.cart[this.props.activeVendorId].items[item.id].quantity : 0
+                                                    }
+                                                </div>
+                                                <AddCircle style={{color: '#ffffff'}} /> */}
+                                                {this.addButton(key, newKey, this.props.cart[key].items[newKey].quantity)}
                                             </div>
-                                            <AddCircle style={{color: '#ffffff'}} /> */}
-                                            {this.addButton(key, newKey, this.props.cart[key].items[newKey].quantity)}
-                                        </div>
-                                    </ListItemSecondaryAction>
-                                </ListItem>  
-                            )
-                        })
-                    }
-                </List>
-            )
-        })
+                                        </ListItemSecondaryAction>
+                                    </ListItem>  
+                                )
+                            })
+                        }
+                    </List>
+                )
+            })
+        }
+        else {
+            items = []
+        }
+        
 
         return (
             <div className='Cart Page'>

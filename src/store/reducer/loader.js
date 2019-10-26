@@ -4,7 +4,6 @@ const initailState = { };
 
 const stalls = (state = initailState, action) => {
     const { type } = action;
-    console.log(action)
     if(type === loader.SHOW_LOADER){
         return{
             ...state,

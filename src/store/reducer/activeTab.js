@@ -6,7 +6,6 @@ const initialState = {
 
 const activeTabs = (state = initialState, action) => {
   const { type } = action;
-  console.log(action);
 
     if (type === activeTab.CHANGE_ACTIVE_TAB) {
         return {

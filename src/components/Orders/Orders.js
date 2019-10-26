@@ -39,8 +39,7 @@ class Orders extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
-                    console.log(body)
+                    body = JSON.parse(body);
                     this.props.updateOrders(body);
                 } catch (e) {
                     throw new Error(e.message || "");
@@ -66,8 +65,7 @@ class Orders extends Component {
         }, (error, response, body) => {
             handleResponse(error, response, body, () => {
                 try {
-                    body = JSON.parse(body)
-                    console.log(body)
+                    body = JSON.parse(body);
                 } catch (e) {
                     throw new Error(e.message || "");
                 }
@@ -89,7 +87,6 @@ class Orders extends Component {
         if (this.props.orders && this.props.realtimeOrders) {
             orders = this.props.orders.map(order => {
                 return order.orders.map(ord => {
-                    {console.log(ord)}
                     return (
                         <div className='OrdersCard' key={ ord['order-id'] }>
                             <div className='OrderName'>{ ord.vendor.name }</div>

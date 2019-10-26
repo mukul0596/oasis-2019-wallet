@@ -7,7 +7,6 @@ const initailState = {
 const stalls = (state = initailState, action) => {
     const { type } = action;
     if(type === stall.SET_VENDORS){
-        console.log(action)
         return{
             ...state,
             vendors: action.vendors

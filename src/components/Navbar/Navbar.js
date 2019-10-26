@@ -12,7 +12,6 @@ import './Navbar.css';
 
 class Navbar extends Component {
     render() {
-        console.log(this.props)
         if(this.props.activeTab === 'MenuItem' && this.props.totalItems > 0){
             let items = this.props.totalItems > 1 ? `${this.props.totalItems} Items` : `${this.props.totalItems} Item`; 
             

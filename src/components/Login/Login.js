@@ -70,7 +70,6 @@ class Login extends Component{
 
     render() {
         let button;
-        console.log(this.props)
         if(this.props.isLoading) {
             button = <Loader style={{height: '30%'}} />
         }
@@ -98,9 +97,9 @@ class Login extends Component{
                         </div>
                         <Button click={(e) => {
                                     e.preventDefault();
-                                    this.props.login(this.state.username, this.state.password);
+                                    this.props.login(this.state.username, this.state.password)
                                 }
-                            } disabled={ (!this.state.username || !this.state.password) }>
+                            }>
                         Login</Button>
                     </form>
                     <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>

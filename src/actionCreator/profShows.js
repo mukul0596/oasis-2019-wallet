@@ -5,7 +5,6 @@ import * as message from './message';
 import * as loader from './loader';
 
 export const buyProfShow = (cart, showcart) => (dispatch, getState) => {
-    console.log(cart, showcart)
     dispatch(loader.showLoader());
     if(!cart || (!Object.keys(cart).length && !Object.keys(showcart).length)) 
             return;
@@ -13,7 +12,6 @@ export const buyProfShow = (cart, showcart) => (dispatch, getState) => {
             'combos': cart,
             'individual': showcart
         }
-        console.log(body)
         request({
             method: 'POST',
             url: api.BUY_TICKETS,
@@ -38,6 +36,5 @@ export const buyProfShow = (cart, showcart) => (dispatch, getState) => {
 }
 
 export const close = () => (dispatch, getState) => {
-    console.log("CLOSE")
     dispatch({ type: 'CLOSE_TRANSACTION' })
 }

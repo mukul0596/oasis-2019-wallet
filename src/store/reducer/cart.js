@@ -4,11 +4,8 @@ const initialState = {}
 
 const carts = (state = initialState, action) => {
   const { type } = action;
-  console.log(type)
   if (type === cart.ADD_TO_CART) {
     let newState;
-    console.log(state.totalItems, state.totalPrice, action.price, 1)
-    console.log(state)
     if (state.cart[action.stallId]) {
       newState = {
         ...state,
@@ -54,12 +51,10 @@ const carts = (state = initialState, action) => {
         }
       }
     }
-    console.log(newState, state)
     return newState;
   }
 
   else if (type === cart.INC_QTY) {
-    console.log(state)
     return {
       ...state,
       totalItems: state.totalItems + 1,
@@ -116,7 +111,6 @@ const carts = (state = initialState, action) => {
   }
 
   else if (type === cart.CART_CLEAR) {
-    console.log(action)
     return {
       ...state,
       totalItems: 0,

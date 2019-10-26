@@ -6,7 +6,6 @@ const initailState = {
 
 const messages = (state = initailState, action) => {
     const { type } = action;
-    console.log(action)
     if(type === message.UPDATE_MESSAGE){
         return {
             ...state,

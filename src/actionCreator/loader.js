@@ -1,7 +1,6 @@
 import * as loader from '../store/actions/loader';
 
 export const showLoader = () => (dispatch, getState) => {
-    console.log('SHOW LOADER')
     dispatch({
         type: loader.SHOW_LOADER
     })

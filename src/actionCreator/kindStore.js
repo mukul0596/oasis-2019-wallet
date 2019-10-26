@@ -19,7 +19,6 @@ export const getKindStoreItems = () => (dispatch, getState) =>{
         handleResponse(error, response, body, () => {
             try {
                 body = JSON.parse(body);
-                console.log(body)
                 dispatch(setKindStore(body));
             } catch (e) {
                 throw new Error(e.message || "");

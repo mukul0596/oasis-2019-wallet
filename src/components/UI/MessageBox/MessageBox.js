@@ -8,7 +8,7 @@ class MessageBox extends Component {
         return (
             <div className="MessageBox">
                 <i className="fa fa-close CloseButton" onClick={ this.props.closeMessage }></i>
-                <div dangerouslySetInnerHTML={{ __html: this.props.children }}></div>
+                { this.props.children }
             </div>
         )
     }

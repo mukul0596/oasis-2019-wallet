@@ -16,7 +16,8 @@ const handleResponse = (error, response, body, cb) => {
     }
   }
   else {
-      dispatch(message.updateMessage(body));
+      body = JSON.parse(body)
+      dispatch(message.updateMessage(body.detail));
   }
 }
 

@@ -10,7 +10,6 @@ const initialState = {
 
 const transactions = (state = initialState, action) => {
     const { type } = action;
-    console.log(action)
     switch (type) {
         case transaction.OPEN_ADD_MONEY:
             return {

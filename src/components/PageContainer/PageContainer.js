@@ -14,7 +14,6 @@ import Developer from '../Developer/Developer';
 class PageConatiner extends Component {
     render() {
         let activePage;
-        console.log(this.props.activeTab)
         switch (this.props.activeTab) {
             case 'Profile':
                 activePage = <Profile />

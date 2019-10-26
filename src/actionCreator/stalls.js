@@ -6,7 +6,6 @@ import * as loader from './loader';
 import * as loaders from '../store/actions/loader';
 
 export const getStalls = () => (dispatch, getState) => {
-    console.log('GET VENDORS')
     dispatch(loader.showLoader());
     request({
         method: 'GET',
@@ -20,8 +19,7 @@ export const getStalls = () => (dispatch, getState) => {
       }, (error, response, body) => {
         handleResponse(error, response, body, () => {
           try {
-            body = JSON.parse(body)
-            console.log(body);
+            body = JSON.parse(body);
             dispatch({
               type: loaders.HIDE_LOADER
             })
@@ -44,7 +42,6 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
     dispatch(setStallMenu({ }, 0, ""))
     dispatch(loader.showLoader());
     dispatch({ type: 'CHANGE_ACTIVE_TAB', activeTab: 'MenuItem' })
-    console.log(vendorId)
     request({
         method: 'GET',
         url: api.GET_VENDOR_MENU_BY_ID(vendorId),
@@ -57,8 +54,7 @@ export const getStallItem = (vendorId, vendorName) => (dispatch, getState) => {
       }, (error, response, body) => {
         handleResponse(error, response, body, () => {
           try {
-            body = JSON.parse(body)
-            console.log(body);
+            body = JSON.parse(body);
             dispatch(setStallMenu(body,vendorId, vendorName))
           } catch (e) {
             throw new Error(e.message || "");

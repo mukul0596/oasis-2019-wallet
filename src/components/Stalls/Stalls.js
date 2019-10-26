@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import '../Page.css';
 import './Stalls.css';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, ListItemAvatar, Avatar } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Loader from '../Loader/loader';
 
@@ -16,13 +16,12 @@ class Stalls extends Component {
     }
     render() {
             let vendors, loader;
-            console.log(this.props)
             if(this.props.isLoading && !this.props.vendors) loader = <Loader style={{height: '65%'}} />
             else loader = []; 
             if(!this.props.vendors) vendors = [];
             else {
                 let openVendors = this.props.vendors.filter(({closed}) => !closed);
-                vendors = openVendors.map(({id, name, description}) => {
+                vendors = openVendors.map(({id, name, image_url}) => {
                     return (
                             <ListItem key={id} alignItems="flex-start" className='stallItem' 
                                 onClick={(e) => {
@@ -30,10 +29,10 @@ class Stalls extends Component {
                                 this.props.getStallItem(id, name);
                                 }
                             }>
-                                {/* <ListItemAvatar>
-                                    <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src="" />
-                                </ListItemAvatar> */}
-                                <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name} secondary={description}/>
+                                <ListItemAvatar>
+                                    <Avatar className="stallImg" calt="Remy Sharp" style={{background: '#ffffff', width: '50px', height: '50px', marginRight: '10px'}} src={image_url} />
+                                </ListItemAvatar>
+                                <ListItemText className="stallName" style={{color: '#ffffff'}} primary={name}/>
                                 <ListItemSecondaryAction>
                                     <IconButton edge="end">
                                         <ArrowForwardIosIcon style={{fill: 'white'}} />
@@ -42,7 +41,6 @@ class Stalls extends Component {
                         </ListItem>
                     )
                 })
-                console.log(vendors)
             }
             return(
                 <div className='Stalls Page'>
